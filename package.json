@@ -1,0 +1,17 @@
+{
+  "name": "depiction",
+  "version": "1.0.1",
+  "description": "Big Boys at Depiction",
+  "main": "BotRunner.js",
+  "scripts": {
+    "start": "node BotRunner.js"
+  },
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "discord.js-commando": "^0.10.0",
+    "ffmpeg-binaries": "^4.0.0",
+    "music-metadata": "^3.2.3",
+    "npm": "^6.4.1",
+    "ytdl-core": "0.24.0"
+  }
+}
