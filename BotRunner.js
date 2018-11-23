@@ -9,7 +9,7 @@ const Meta = require("music-metadata");
 global.Version = "Lyaboo 0.0.1";
 global.Testing = false;
 global.Prefix = "ly!";
-global.Status = `Desktop Retrowave and Aesthetics`;
+global.Status = `${Prefix} | Retrowave and Aesthetics`;
 
 // Getting Bot Table Information
 global.Records = {
