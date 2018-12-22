@@ -9,7 +9,7 @@ const Meta = require("music-metadata");
 global.Version = "Lyaboo 0.0.1";
 global.Testing = false;
 global.Prefix = "ly!";
-global.Status = `${Prefix} | Retrowave and Aesthetics`;
+global.Status = `Greeting and Meeting Aesthetically.`;
 
 // Getting Bot Table Information
 global.Records = {
@@ -25,15 +25,8 @@ global.Servers = {
 
 // Getting Bot Server Information
 global.Bot = new Commando.Client({
-    commandPrefix: Prefix,
+    commandPrefix: Prefix
 });
-
-Bot.registry
-.registerGroup('main', 'Information Commands')
-.registerGroup('music', 'Vibes Commands')
-.registerGroup('utility', 'Moderation Commands')
-.registerDefaults()
-.registerCommandsIn(__dirname + "/commands");
 
 // Getting Bot Functions
 	// Serving ${Bot.guilds.size} Servers! 
