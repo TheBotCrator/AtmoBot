@@ -3,13 +3,12 @@
 const Name = "Lyaboo Bot";
 const Discord = require('discord.js');
 const Commando = require('discord.js-commando');
-const Meta = require("music-metadata");
 
 // Getting Bot Version Information
-global.Version = "0.0.2";
+global.Version = "0.0.3";
 global.Testing = false;
 global.Prefix = "ly!";
-global.Status = `Sector Greeting and Meeting. V:${Version}`;
+global.Status = `Sector Greeting and Meeting. V: ${Version}`;
 
 // Getting Bot Server Information
 global.Bot = new Commando.Client({
