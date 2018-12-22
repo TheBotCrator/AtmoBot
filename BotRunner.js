@@ -6,7 +6,7 @@ const Commando = require('discord.js-commando');
 const Meta = require("music-metadata");
 
 // Getting Bot Version Information
-global.Version = "Lyaboo 0.0.1";
+global.Version = "0.0.2";
 global.Testing = false;
 global.Prefix = "ly!";
 global.Status = `Sector Greeting and Meeting. V:${Version}`;
@@ -31,7 +31,7 @@ Bot.on("guildDelete", Guild => {
 Bot.on("guildMemberAdd", Member => {
     console.log(`${Member.user.username} has joined ${Member.guild.id}`);
 
-    const Role = Member.guild.roles.find(r => r.name === "Pending Acceptance");
+    const Role = Member.guild.roles.find(r => r.name === "Sector Noobs");
     Member.addRole(Role)
 
     const welcomeChannel = Member.guild.channels.find('name', 'general');
