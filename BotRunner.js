@@ -61,10 +61,7 @@ Bot.on("guildMemberRemove", Member => {
 });
 Bot.on("ready", function () {
     console.log(`${Name}: Lyaboo Bot has loaded and is ready for Usage. Online at ${Bot.guilds.size}`);
-    if (Testing === false){
-	    //Bot.user.setActivity(`${Status}`, {type: "STREAMING", url: "https://discord.gg/yS4vmZq"})
-	    Bot.user.setPresence({ game: { name: `${Status}`, type: 'STREAMIMG', url: 'https://discord.gg/yS4vmZq'}})
-    };           
+    if (Testing === false) Bot.user.setActivity(`${Status}`, {type: "STREAMING", url: "https://discord.gg/yS4vmZq"});
     if(Testing === true){
         Bot.user.setStatus("idle");
         Bot.user.setActivity("Maintenance Mode On, Will Be Back Soon.")
