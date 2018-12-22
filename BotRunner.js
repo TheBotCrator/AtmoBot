@@ -9,16 +9,7 @@ const Meta = require("music-metadata");
 global.Version = "Lyaboo 0.0.1";
 global.Testing = false;
 global.Prefix = "ly!";
-global.Status = `Sector Greeting and Meeting`;
-
-// Getting Bot Table Information
-global.Records = {
-    [521782616563646465]: {
-        Joins: {USEABLE: true, CHANNEL: [521782616563646467], MESSAGE: false},
-        Leaves: {USEABLE: false, CHANNEL: [521782616563646467], MESSAGE: false},
-        AutoRole: {USEABLE: false, ROLE: ["Pending Acceptance"], TIME: false}
-    }
- };
+global.Status = `Sector Greeting and Meeting. V:${Version}`;
 
 // Getting Bot Server Information
 global.Bot = new Commando.Client({
@@ -43,7 +34,7 @@ Bot.on("guildMemberAdd", Member => {
     const Role = Member.guild.roles.find(r => r.name === "Pending Acceptance");
     Member.addRole(Role)
 
-    const welcomeChannel = Member.guild.channels.find('name', 'welcomer');
+    const welcomeChannel = Member.guild.channels.find('name', 'general');
     if (welcomeChannel) {
         let WelcomeEmbed = new Discord.RichEmbed()
             .setTitle("Member has joined!")
@@ -57,7 +48,7 @@ Bot.on("guildMemberAdd", Member => {
 });
 Bot.on("guildMemberRemove", Member => {
     console.log(`${Member.user.username} has left ${Member.guild.id}`);
-    const leaveChannel = Member.guild.channels.find('name', 'welcomer');
+    const leaveChannel = Member.guild.channels.find('name', 'general');
     if (leaveChannel) {
         let LeaveEmbed = new Discord.RichEmbed()
             .setTitle("Member has left!")
