@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 const Commando = require('discord.js-commando');
 
 // Getting Bot Version Information
-global.Version = "0.0.3";
+global.Version = "0.0.4";
 global.Testing = false;
 global.Prefix = "ly!";
 global.Status = `Sector Greeting and Meeting. V: ${Version}`;
@@ -61,7 +61,7 @@ Bot.on("guildMemberRemove", Member => {
 });
 Bot.on("ready", function () {
     console.log(`${Name}: Lyaboo Bot has loaded and is ready for Usage. Online at ${Bot.guilds.size}`);
-    if (Testing === false) Bot.user.setActivity(`${Status}`, {type: "STREAMING"})
+    if (Testing === false) Bot.user.setActivity(`${Status}`, {type: "STREAMING", url: "https://discord.gg/yS4vmZq"})
     if(Testing === true){
         Bot.user.setStatus("idle");
         Bot.user.setActivity("Maintenance Mode On, Will Be Back Soon.")
