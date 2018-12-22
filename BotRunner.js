@@ -21,11 +21,11 @@ global.Bot = new Commando.Client({
 
 Bot.on("guildCreate", Guild => {
     console.log(`New guild joined: ${Guild.name} (id: ${Guild.id}). This guild has ${Guild.memberCount} members!`);
-    if (Testing === false) Bot.user.setActivity(`${Status}`, { type: "STREAMING" })
+    if (Testing === false) Bot.user.setActivity(`${Status}`, { type: "STREAMING", url: "https://discord.gg/yS4vmZq" })
 });
 Bot.on("guildDelete", Guild => {
     console.log(`I have been removed from: ${Guild.name} (id: ${Guild.id})`);
-    if (Testing === false) Bot.user.setActivity(`${Status}`, { type: "STREAMING" })
+    if (Testing === false) Bot.user.setActivity(`${Status}`, { type: "STREAMING", url: "https://discord.gg/yS4vmZq"})
 });
 
 Bot.on("guildMemberAdd", Member => {
