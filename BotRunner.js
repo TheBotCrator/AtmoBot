@@ -9,19 +9,16 @@ const Meta = require("music-metadata");
 global.Version = "Lyaboo 0.0.1";
 global.Testing = false;
 global.Prefix = "ly!";
-global.Status = `Greeting and Meeting Aesthetically.`;
+global.Status = `Sector Greeting and Meeting`;
 
 // Getting Bot Table Information
 global.Records = {
-    [494609880552833027]: {
-        Joins: {USEABLE: true, CHANNEL: [509532922802470913], MESSAGE: false},
-        Leaves: {USEABLE: true, CHANNEL: [509532922802470913], MESSAGE: false},
-        AutoRole: {USEABLE: true, ROLE: ["Pending Acceptance"], TIME: false}
+    [521782616563646465]: {
+        Joins: {USEABLE: true, CHANNEL: [521782616563646467], MESSAGE: false},
+        Leaves: {USEABLE: false, CHANNEL: [521782616563646467], MESSAGE: false},
+        AutoRole: {USEABLE: false, ROLE: ["Pending Acceptance"], TIME: false}
     }
  };
-global.Servers = {
-
-};
 
 // Getting Bot Server Information
 global.Bot = new Commando.Client({
@@ -51,7 +48,7 @@ Bot.on("guildMemberAdd", Member => {
         let WelcomeEmbed = new Discord.RichEmbed()
             .setTitle("Member has joined!")
             .setThumbnail(Member.user.displayAvatarURL)
-            .setDescription(`Welcome ${Member.user} to ${Member.guild.name}, \nChill, Relax, and Have Fun. \n and I hope you enjoy your stay here and please make sure to read <#494610101865545738> to get roled to the next role.`)
+            .setDescription(`Welcome ${Member.user} to ${Member.guild.name}.`)
             .setColor("#27037e")
             .setFooter(`You are the ${Member.guild.memberCount} member to joined.`)
             .setTimestamp();
