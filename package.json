@@ -1,7 +1,7 @@
 {
-  "name": "depiction",
+  "name": "lyaboo",
   "version": "1.0.1",
-  "description": "Big Boys at Depiction",
+  "description": "Big Boys at Lyaboo",
   "main": "BotRunner.js",
   "scripts": {
     "start": "node BotRunner.js"
