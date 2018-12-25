@@ -1,1 +1,1 @@
-# Depiction Discord Bot
+# Lyaboo Discord Bot
