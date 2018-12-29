@@ -8,7 +8,7 @@ const Commando = require('discord.js-commando');
 global.Version = "0.0.6";
 global.Testing = false;
 global.Prefix = "ly!";
-global.Status = `Greetings from Sector. V: ${Version}`;
+global.Status = `Dr. Azumi Fujita is a nerd. V: ${Version}`;
 
 // Getting Bot Server Information
 global.Bot = new Commando.Client({
