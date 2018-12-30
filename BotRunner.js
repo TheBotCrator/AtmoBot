@@ -28,7 +28,7 @@ const Servers = {
     [494609880552833027]
 };
 
-// const Rainbow = new Array(Size);
+const Rainbow = new Array(Size);
 const RainbowPlace = 0;
 const RoleName = "Sector Aces";
 
