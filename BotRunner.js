@@ -15,10 +15,11 @@ global.Bot = new Commando.Client({
     commandPrefix: Prefix
 });
 
+/*
 Bot.registry
     .registerGroup('info', 'Information Commands')
     .registerDefaults()
-    .registerCommandsIn(__dirname + "/commands");
+    .registerCommandsIn(__dirname + "/commands");*/
 
 // Getting Bot Functions
 
