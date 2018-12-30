@@ -27,11 +27,11 @@ const Servers = [
     "494609880552833027"
 ];
 
-const Rainbow = new Array(size);
+const Rainbow = new Array(Size);
 const RainbowPlace = 0;
 const RoleName = "Sector Aces";
 
-for (var i = 0; i < size; i++) {
+for (var i = 0; i < Size; i++) {
     var Red = sin_to_hex(i, 0 * Math.PI * 2 / 3); // 0   deg
     var Blue = sin_to_hex(i, 1 * Math.PI * 2 / 3); // 120 deg
     var Green = sin_to_hex(i, 2 * Math.PI * 2 / 3); // 240 deg
@@ -40,7 +40,7 @@ for (var i = 0; i < size; i++) {
 }
 
 function sin_to_hex(i, phase) {
-    var sin = Math.sin(Math.PI / size * 2 * i + phase);
+    var sin = Math.sin(Math.PI / Size * 2 * i + phase);
     var int = Math.floor(sin * 127) + 128;
     var hex = int.toString(16);
     return hex.length === 1 ? '0' + hex : hex;
