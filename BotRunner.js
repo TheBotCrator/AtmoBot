@@ -6,7 +6,7 @@ const Commando = require('discord.js-commando');
 const forEachTimeout = require('foreach-timeout');
 
 // Getting Bot Version Information
-global.Version = "0.0.6";
+global.Version = "0.0.8";
 global.Testing = false;
 global.Prefix = "ly!";
 global.Status = `${Prefix}help | Sector Welcome Assistant.`;
@@ -28,8 +28,8 @@ const Stop = [];
 
 async function Color() {
     forEachTimeout(Colors, (Color) => {
-        client.guilds.forEach((guild) => {
-            if (!stop.includes(guild.id)) {
+        Bot.guilds.forEach((guild) => {
+            if (!Stop.includes(guild.id)) {
                 let role = guild.roles.find('name', 'Sector Aces');
                 if (role && role.editable)
                     role.setColor(Color);
