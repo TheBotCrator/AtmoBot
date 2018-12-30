@@ -48,7 +48,7 @@ function sin_to_hex(i, phase) {
 
 function changeColor() {
     for (let index = 0; index < Servers.length; ++index) {
-        client.guilds.get(Servers[index]).roles.find('name', RoleName).setColor(Rainbow[RainbowPlace])
+        Bot.guilds.get(Servers[index]).roles.find('name', RoleName).setColor(Rainbow[RainbowPlace])
             .catch(console.error);
 
         if (RainbowPlace == (Size - 1)) {
