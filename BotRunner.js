@@ -23,9 +23,9 @@ Bot.registry
 // Getting Primaries
 const Size = 12;
 const Speed = 60000;
-const Servers = [
-    "494609880552833027"
-];
+const Servers = {
+    [494609880552833027]
+};
 
 const Rainbow = new Array(Size);
 const RainbowPlace = 0;
@@ -37,14 +37,14 @@ for (var i = 0; i < Size; i++) {
     var Green = sin_to_hex(i, 2 * Math.PI * 2 / 3); // 240 deg
 
     Rainbow[i] = '#' + Red + Green + Blue;
-}
+};
 
 function sin_to_hex(i, phase) {
     var sin = Math.sin(Math.PI / Size * 2 * i + phase);
     var int = Math.floor(sin * 127) + 128;
     var hex = int.toString(16);
     return hex.length === 1 ? '0' + hex : hex;
-}
+};
 
 function changeColor() {
     for (let index = 0; index < Servers.length; ++index) {
@@ -57,7 +57,7 @@ function changeColor() {
             RainbowPlace++;
         }
     }
-}
+};
 
 // Getting Bot Functions
 
