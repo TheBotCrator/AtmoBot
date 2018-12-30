@@ -39,7 +39,7 @@ const RoleName = "Sector Aces";
     Rainbow[i] = '#' + Red + Green + Blue;
 };*/
 
-function sin_to_hex(i, phase) {
+/*function sin_to_hex(i, phase) {
     var sin = Math.sin(Math.PI / Size * 2 * i + phase);
     var int = Math.floor(sin * 127) + 128;
     var hex = int.toString(16);
@@ -57,7 +57,7 @@ function changeColor() {
             RainbowPlace++;
         }
     }
-};
+};*/
 
 // Getting Bot Functions
 
