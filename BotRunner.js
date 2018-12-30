@@ -112,7 +112,7 @@ Bot.on("ready", function () {
         Bot.user.setActivity("Maintenance Mode On, Will Be Back Soon.")
         return;
     }	
-    setInterval(changeColor, Speed);
+    //setInterval(changeColor, Speed);
 });
 
 //Bot.login(process.env.BOT_TOKEN)
