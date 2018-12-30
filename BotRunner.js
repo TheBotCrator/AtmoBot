@@ -31,13 +31,13 @@ const Rainbow = new Array(Size);
 const RainbowPlace = 0;
 const RoleName = "Sector Aces";
 
-for (var i = 0; i < Size; i++) {
+/*for (var i = 0; i < Size; i++) {
     var Red = sin_to_hex(i, 0 * Math.PI * 2 / 3); // 0   deg
     var Blue = sin_to_hex(i, 1 * Math.PI * 2 / 3); // 120 deg
     var Green = sin_to_hex(i, 2 * Math.PI * 2 / 3); // 240 deg
 
     Rainbow[i] = '#' + Red + Green + Blue;
-};
+};*/
 
 function sin_to_hex(i, phase) {
     var sin = Math.sin(Math.PI / Size * 2 * i + phase);
