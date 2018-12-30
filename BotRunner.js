@@ -21,6 +21,42 @@ Bot.registry
     .registerDefaults()
     .registerCommandsIn(__dirname + "/commands");*/
 
+// Getting Primaries
+const Size = 12;
+const Speed = 60000;
+const Servers = {
+    [494609880552833027]
+};
+
+// const Rainbow = new Array(Size);
+const RainbowPlace = 0;
+const RoleName = "Sector Aces";
+
+for (var i = 0; i < Size; i++) {
+    var Red = sin_to_hex(i, 0 * Math.PI * 2 / 3); // 0   deg
+    var Blue = sin_to_hex(i, 1 * Math.PI * 2 / 3); // 120 deg
+    var Green = sin_to_hex(i, 2 * Math.PI * 2 / 3); // 240 deg
+    Rainbow[i] = '#' + Red + Green + Blue;
+};
+
+function sin_to_hex(i, phase) {
+    var sin = Math.sin(Math.PI / Size * 2 * i + phase);
+    var int = Math.floor(sin * 127) + 128;
+    var hex = int.toString(16);
+    return hex.length === 1 ? '0' + hex : hex;
+};
+function changeColor() {
+    for (let index = 0; index < Servers.length; ++index) {
+        Bot.guilds.get(Servers[index]).roles.find('name', RoleName).setColor(Rainbow[RainbowPlace])
+            .catch(console.error);
+        if (RainbowPlace == (Size - 1)) {
+            RainbowPlace = 0;
+        } else {
+            RainbowPlace++;
+        }
+    }
+};
+
 // Getting Bot Functions
 
 Bot.on("guildCreate", Guild => {
@@ -64,13 +100,18 @@ Bot.on("guildMemberRemove", Member => {
         leaveChannel.send(LeaveEmbed)
     }
 });
+
 Bot.on("ready", function () {
     console.log(`${Name}: Lyaboo Bot has loaded and is ready for Usage. Online at ${Bot.guilds.size}`);
-    if (Testing === false) Bot.user.setActivity(`${Status}`, {type: "STREAMING"})
+    if (Testing === false) {
+        Bot.user.setActivity(`${Status}`, {type: "STREAMING"})
+    };
     if(Testing === true){
         Bot.user.setStatus("idle");
         Bot.user.setActivity("Maintenance Mode On, Will Be Back Soon.")
-    }
+        return;
+    }	
+    setInterval(changeColor, Speed);
 });
 
 //Bot.login(process.env.BOT_TOKEN)
