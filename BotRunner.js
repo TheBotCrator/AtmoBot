@@ -25,7 +25,7 @@ Bot.registry
 const Size = 12;
 const Speed = 60000;
 const Servers = {
-    [494609880552833027]
+    "494609880552833027"
 };
 
 const Rainbow = new Array(Size);
@@ -103,13 +103,10 @@ Bot.on("guildMemberRemove", Member => {
 
 Bot.on("ready", function () {
     console.log(`${Name}: Lyaboo Bot has loaded and is ready for Usage. Online at ${Bot.guilds.size}`);
-    if (Testing === false) {
-        Bot.user.setActivity(`${Status}`, {type: "STREAMING"})
-    };
+    if (Testing === false) Bot.user.setActivity(`${Status}`, {type: "STREAMING"})
     if(Testing === true){
         Bot.user.setStatus("idle");
         Bot.user.setActivity("Maintenance Mode On, Will Be Back Soon.")
-        return;
     }	
     setInterval(changeColor, Speed);
 });
