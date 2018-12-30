@@ -69,7 +69,6 @@ Bot.on("ready", function () {
     if(Testing === true){
         Bot.user.setStatus("idle");
         Bot.user.setActivity("Maintenance Mode On, Will Be Back Soon.")
-        return;
     }
 });
 
