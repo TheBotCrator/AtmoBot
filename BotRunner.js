@@ -7,7 +7,7 @@ const forEachTimeout = require('foreach-timeout');
 
 // Getting Bot Version Information
 global.Version = "0.0.8";
-global.Testing = true;
+global.Testing = false;
 global.Prefix = "ly!";
 global.Status = `${Prefix}help | Sector Welcome Assistant.`;
 
@@ -30,7 +30,7 @@ async function Color() {
     forEachTimeout(Colors, (Color) => {
         Bot.guilds.forEach((guild) => {
             if (!Stop.includes(guild.id)) {
-                let role = guild.roles.find('name', 'Sector Aces');
+                let role = guild.roles.find('name', 'Certified Customary');
                 if (role && role.editable)
                     role.setColor(Color);
             }
