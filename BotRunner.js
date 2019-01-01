@@ -7,7 +7,7 @@ const forEachTimeout = require('foreach-timeout');
 
 // Getting Bot Version Information
 global.Version = "0.0.8";
-global.Testing = false;
+global.Testing = true;
 global.Prefix = "ly!";
 global.Status = `${Prefix}help | Sector Welcome Assistant.`;
 
