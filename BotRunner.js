@@ -6,7 +6,7 @@ const Commando = require('discord.js-commando');
 const forEachTimeout = require('foreach-timeout');
 
 // Getting Bot Version Information
-global.Version = "0.0.8";
+global.Version = "0.0.81";
 global.Testing = false;
 global.Prefix = "ly!";
 global.Status = `${Prefix}help | Sector Welcome Assistant.`;
