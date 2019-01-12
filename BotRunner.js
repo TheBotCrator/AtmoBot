@@ -90,6 +90,7 @@ Bot.on("guildMemberRemove", Member => {
     }
 });
 Bot.on("message", Message => {
+	Message.channel.send('stfu')
 	if (Message.author.equals(Bot.user)) return;
 	if (Message.channel.type === "dm") return;
 	
