@@ -18,7 +18,7 @@ global.Bot = new Commando.Client({
     commandPrefix: Prefix
 });
 global.Records = {
-    "521782616563646465": {
+    [521782616563646465]: {
         Suggestions: {
 			USEABLE: true, 
 			Channel: "suggestions", 
@@ -90,9 +90,9 @@ Bot.on("guildMemberRemove", Member => {
     }
 });
 Bot.on("message", Message => {
-	Message.channel.send('stfu')
 	if (Message.author.equals(Bot.user)) return;
 	if (Message.channel.type === "dm") return;
+	Message.channel.send('stfu')
 	
 	if (Records[Message.guild.id]) { 
 		Message.channel.send(`Phase 1`)
