@@ -99,7 +99,7 @@ Bot.on("message", Message => {
 	if (!RecordChannel) return;
 	if (!SuggestionChannel) return;
 	if (!Suggestions.USEABLE === true) return;
-	if (!SuggestionChannel.id === SentMessageChannel.id) return;
+	if (!SuggestionChannel.id === SentMessageChannel.id) Message.channel.send('Incalid') return;
 	
 	//Message.channel.send(`SUGGESTIONS: ${SuggestionChannel.id} | CURRENT: ${SentMessageChannel.id}`)
 	Message.channel.send(':white_check_mark: Successful!')
