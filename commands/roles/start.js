@@ -5,7 +5,7 @@ class RStartCommand extends Commando.Command {
 	constructor(client){
 		super(client, {
 			name: 'rstart',
-			group: 'role',
+			group: 'roles',
 			memberName: "rstart",
 			description: 'Will Start the Rainbow Color Process.'
 		});
