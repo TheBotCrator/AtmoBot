@@ -89,9 +89,9 @@ Bot.on("message", Message => {
 	if (Message.author.equals(Bot.user)) return;
 	if (Message.channel.type === "dm") return;
 	
-	if (Record[Message.guild.id]) { 
-		let	Records = Record[Message.guild.id] 
-		let Suggestions = Records.Suggestions
+	if (Records[Message.guild.id]) { 
+		let Record = Records[Message.guild.id] 
+		let Suggestions = Record.Suggestions
 		if (Suggestions.USEABLE) {
 			let RecordChannel = Message.guild.channels.find(`name`, Suggestions.RecordChannel)
 			let SuggestionChannel = Message.guild.channels.find(`name`, SuggestionChannel.Channel)
