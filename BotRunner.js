@@ -88,26 +88,23 @@ Bot.on("message", Message => {
 	if (Message.author.equals(Bot.user)) return;
 	if (Message.channel.type === "dm") return;
 	if (Message.content.startsWith(Prefix)) return;
-	Message.channel.send(`P0`)	
 	
 	let Record = Records[Message.guild.id] 
-	if (!Records[Message.guild.id]) return;
-	Message.channel.send(`P1`)	
+	if (!Records[Message.guild.id]) return Message.channel.send(`P1`);
 	
-	let Suggestions = Record.Suggestions
+	let Suggestions = Record.Suggestions 
+	if (!Suggestions) return Message.channel.send(`P2`);
+	
 	let RecordChannel = Message.guild.channels.get(Suggestions.RECORD)
 	let SuggestionChannel = Message.guild.channels.get(Suggestions.CHANNEL)
 	let SentMessageChannel = Message.channel
-	Message.channel.send(`P2`)	
 	//Message.channel.send(`SUGGESTIONS: ${SuggestionChannel.id} | CURRENT: ${SentMessageChannel.id}`)
 
-	if (!SuggestionChannel.id === SentMessageChannel.id) return;
-	Message.channel.send(`P3`)	
-	if (!RecordChannel) return;
-	if (!SuggestionChannel) return;
-	Message.channel.send(`P4`)	
+	if (!SuggestionChannel.id === SentMessageChannel.id) return Message.channel.send("P3");
+	if (!RecordChannel) return ;Message.channel.send(`P4-1`);
+	if (!SuggestionChannel) return;Message.channel.send(`P4-2`);
 	
-	if (!Suggestions.USEABLE === true) return;
+	if (!Suggestions.USEABLE === true) return Message.channel.send(`P5`);
 	
 	Message.channel.send(':white_check_mark: Successful!')
 	let FirstEmbed = new Discord.RichEmbed()
