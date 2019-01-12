@@ -35,7 +35,7 @@ async function Color() {
     forEachTimeout(Colors, (Color) => {
         Bot.guilds.forEach((guild) => {
             if (!Stop.includes(guild.id)) {
-                let role = guild.roles.find('name', 'Sector Aces');
+                let role = guild.roles.find('name', 'Certified Customary');
                 if (role && role.editable)
                     role.setColor(Color);
             }
@@ -89,8 +89,8 @@ Bot.on("message", Message => {
 	if (Message.author.equals(Bot.user)) return;
 	if (Message.channel.type === "dm") return;
 	
-	if (global.Record[Message.guild.id]) { 
-		let	Records = global.Record[Message.guild.id] 
+	if (Record[Message.guild.id]) { 
+		let	Records = Record[Message.guild.id] 
 		let Suggestions = Records.Suggestions
 		if (Suggestions.USEABLE) {
 			let RecordChannel = Message.guild.channels.find(`name`, Suggestions.RecordChannel)
