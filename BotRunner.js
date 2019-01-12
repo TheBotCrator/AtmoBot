@@ -93,7 +93,7 @@ Bot.on("message", Message => {
 		let Record = Records[Message.guild.id] 
 		let Suggestions = Record.Suggestions
 		if (Suggestions.USEABLE) {
-			let RecordChannel = Message.guild.channels.find(`name`, Suggestions.RecordChannel)
+			let RecordChannel = Message.guild.channels.find(`name`, Suggestions.Record)
 			let SuggestionChannel = Message.guild.channels.find(`name`, Suggestions.Channel)
 			let SentMessageChannel = Message.channel
 			if (RecordChannel) {
