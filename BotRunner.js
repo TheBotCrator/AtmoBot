@@ -17,11 +17,11 @@ global.Stop = [ ]
 global.Bot = new Commando.Client({
     commandPrefix: Prefix
 });
-global.Records = {
+/*global.Records = {
     [494609880552833027]: {
         Suggestions: {USEABLE: true, Channel: ["suggestions"], Record: ["suggestion-logs"]}
     }
- }
+ }*/
 
 Bot.registry
     .registerGroup('info', 'Information Commands')
