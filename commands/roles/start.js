@@ -4,10 +4,10 @@ const Discord = require('discord.js')
 class RStartCommand extends Commando.Command { 
 	constructor(client){
 		super(client, {
-			name: 'rstop',
+			name: 'rstart',
 			group: 'role',
-			memberName: "rstop",
-			description: 'Will stop the Rainbow Color Process.'
+			memberName: "rstart",
+			description: 'Will Start the Rainbow Color Process.'
 		});
 	}	
 	
