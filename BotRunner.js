@@ -17,11 +17,11 @@ global.Stop = [ ]
 global.Bot = new Commando.Client({
     commandPrefix: Prefix
 });
-/*global.Records = {
+global.Records = {
     [494609880552833027]: {
         Suggestions: {USEABLE: true, Channel: ["suggestions"], Record: ["suggestion-logs"]}
     }
- }*/
+ }
 
 /*Bot.registry
     .registerGroup('info', 'Information Commands')
@@ -85,7 +85,7 @@ Bot.on("guildMemberRemove", Member => {
         leaveChannel.send(LeaveEmbed)
     }
 });
-/*Bot.on("message", Message => {
+Bot.on("message", Message => {
 	if (Message.author.equals(Bot.user)) return;
 	if (Message.channel.type === "dm") return;
 	
@@ -120,7 +120,7 @@ Bot.on("guildMemberRemove", Member => {
 			}	
 		}	
 	}	
-});*/
+});
 Bot.on("ready", function () {
     console.log(`${Name}: Lyaboo Bot has loaded and is ready for Usage. Online at ${Bot.guilds.size}`);
     if (Testing === false) {
