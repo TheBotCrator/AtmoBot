@@ -5,7 +5,7 @@ class RStopCommand extends Commando.Command {
 	constructor(client){
 		super(client, {
 			name: 'rstop',
-			group: 'role',
+			group: 'roles',
 			memberName: "rstop",
 			description: 'Will stop the Rainbow Color Process.'
 		});
