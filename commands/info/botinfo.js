@@ -13,22 +13,30 @@ class BotCommand extends Commando.Command {
 	
 	async run(message, args){
         if (message.author.equals(Bot.user)) return;
-		if(message.channel.type === "dm") return;
-		if(Testing === true) return;
+		if (message.channel.type === "dm") return;
+		if (Testing === true) return;
 		
-        let Bot_Embed = new Discord.RichEmbed()
-            .setTitle("Lyaboo")
-            .setAuthor("Kali#6666", "https://cdn.discordapp.com/avatars/417835827700301836/5596ef1137c7083eb212d0d85072f63e.png?size=256")
+        let FirstEmbed = new Discord.RichEmbed()
+            .setAuthor("Lyaboo", "https://cdn.discordapp.com/avatars/513448452987027478/0693b8c4738c0da560cce2ce0aa97802.png?size=256")
             .setColor("6e00ff")
-            .setFooter("Bot Developer: Kali#6666", "https://cdn.discordapp.com/avatars/513448452987027478/0693b8c4738c0da560cce2ce0aa97802.png?size=256")
+            .setFooter("Bot Developer: Pharaoh#6666", "https://cdn.discordapp.com/avatars/513448452987027478/0693b8c4738c0da560cce2ce0aa97802.png?size=256")
             .setThumbnail("https://cdn.discordapp.com/avatars/513448452987027478/0693b8c4738c0da560cce2ce0aa97802.png?size=256")
             .setTimestamp()
             .addField("Bot Library", "Discord.Js")
+			.addField("Bot Commands", `${Prefix}help`)
             .addField("Bot Prefix", `'${Prefix}'`)
             .addField("Bot Version", `${Version}`)
             .addBlankField(true);
-       	message.author.send(Bot_Embed); 
-		return;
+		let SecondEmbed = new Discord.RichEmbed()
+			.setAuthor("Lyaboo Dedications", "https://cdn.discordapp.com/avatars/513448452987027478/0693b8c4738c0da560cce2ce0aa97802.png?size=256")
+			.addField("Clickbait", "Owned by Forgetful#6666")
+			.addField("The Frosty Nation", "Owned by  #5243")
+			.setFooter("Want to see your Discord Added? DM Pharaoh#6666", "https://cdn.discordapp.com/avatars/513448452987027478/0693b8c4738c0da560cce2ce0aa97802.png?size=256")
+			.addBlankField(true);
+	   message.author.send(FirstEmbed); 
+	   message.author.send(SecondEmbed);
+	   message.reply(":white_check_mark: Please Check Direct Messages for More Information. If you didn't receive any messages, it's because your DM's are disabled.")
+	   return;
 	}
 }
 
