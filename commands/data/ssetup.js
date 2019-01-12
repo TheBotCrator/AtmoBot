@@ -45,7 +45,7 @@ class SSetupCommand extends Commando.Command {
 			
 			let RichEmbed = new Discord.RichEmbed()
 				.setTitle("Suggestion Setup Complete!")
-				.setThumbnail(Message.member.user.displayAvatarURL)
+				.setThumbnail(message.member.user.displayAvatarURL)
 				.setColor("#27037e")
 				.setFooter(`Brought to you by Lyaboo Development.`)
 				.addField("ENABLED", `${Args[1]}`)
