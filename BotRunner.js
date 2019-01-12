@@ -23,11 +23,11 @@ global.Bot = new Commando.Client({
     }
  }*/
 
-Bot.registry
+/*Bot.registry
     .registerGroup('info', 'Information Commands')
 	.registerGroup('roles', 'Rainbow Commands')
 	.registerDefaults()
-    .registerCommandsIn(__dirname + "/commands");
+    .registerCommandsIn(__dirname + "/commands");*/
 
 // Getting Rainbow Functions
 
