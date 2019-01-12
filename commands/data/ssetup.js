@@ -29,7 +29,7 @@ class SSetupCommand extends Commando.Command {
 				Records[message.guild.id].Suggestions = { }
 			};
 			
-			if (Args[1] === true) {
+			if (Args[1] === "true") {
 				Records[message.guild.id].Suggestions.USEABLE = true
 			} else {
 				Records[message.guild.id].Suggestions.USEABLE = false
