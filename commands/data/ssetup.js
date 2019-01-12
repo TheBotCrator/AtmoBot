@@ -41,7 +41,7 @@ class SSetupCommand extends Commando.Command {
 			if (!SuggestionLogs) return message.channel.send(":x: Suggestions Log Channel Id Invalid!");
 			
 			Records[message.guild.id].Suggestions.CHANNEL = Args[2]
-			Records[message.guild.id].Suggestions.RECORD = Args[2]	
+			Records[message.guild.id].Suggestions.RECORD = Args[3]
 			
 			let RichEmbed = new Discord.RichEmbed()
 				.setTitle("Suggestion Setup Complete!")
