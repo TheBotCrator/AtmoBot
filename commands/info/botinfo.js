@@ -35,7 +35,7 @@ class BotCommand extends Commando.Command {
 			.addBlankField(true);
 	   message.author.send(FirstEmbed); 
 	   message.author.send(SecondEmbed);
-	   message.reply(":white_check_mark: Please Check Direct Messages for More Information. If you didn't receive any messages, it's because your DM's are disabled.")
+	   message.channel.send(":white_check_mark: Please Check Direct Messages for More Information. If you didn't receive any messages, it's because your DM's are disabled.")
 	   return;
 	}
 }
