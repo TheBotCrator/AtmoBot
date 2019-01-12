@@ -19,7 +19,7 @@ global.Bot = new Commando.Client({
 });
 global.Records = {
     [521782616563646465]: {
-        Suggestions: {USEABLE: true, Channel: ["suggestions"], Record: ["suggestion-logs"]}
+        Suggestions: {USEABLE: true, Channel: "suggestions", Record: "suggestion-logs"}
     }
  }
 
