@@ -9,7 +9,7 @@ const forEachTimeout = require('foreach-timeout'); // Used for Rainbow Roles.
 global.Version = "0.0.6"; // Bot's Version.
 global.Testing = false; // To Check if the Testing Version of the Bot is Enabled.
 global.Prefix = "q"; // Prefix for Bot Commands.
-global.Status = `${Prefix}help | Sector Welcome Assistant. BT0`; // Status of the Bot.
+global.Status = `${Prefix}help | Sector Welcome Assistant. BBK0`; // Status of the Bot.
 global.Colors = ["FF0D00", "FF2800", "FF3D00", "FF4F00", "FF5F00", "FF6C00", "FF7800", "FF8300", "FF8C00", "FF9500", "FF9E00", "FFA500", "FFAD00", "FFB400", "FFBB00", "FFC200", "FFC900", "FFCF00", "FFD600", "FFDD00", "FFE400", "FFEB00", "FFF200", "FFFA00", "F7FE00", "E5FB00", "D5F800", "C6F500", "B7F200", "A8F000", "98ED00", "87EA00", "74E600", "5DE100", "41DB00", "1DD300", "00C618", "00BB3F", "00B358", "00AC6B", "00A67C", "009E8E", "028E9B", "06799F", "0969A2", "0C5DA5", "0E51A7", "1047A9", "133CAC", "1531AE", "1924B1", "1F1AB2", "2A17B1", "3415B0", "3C13AF", "4512AE", "4E10AE", "560EAD", "600CAC", "6A0AAB", "7608AA", "8506A9", "9702A7", "AD009F", "BC008D", "C7007D", "D0006E", "D8005F", "DF004F", "E7003E", "EF002A", "F80012"];
 global.Stop = [ ]
 
@@ -95,11 +95,11 @@ Bot.on("message", Message => {
 	let SuggestionChannel = Message.guild.channels.get(Suggestions.CHANNEL)
 	let SentMessageChannel = Message.channel			
 	
-	if (!Records[Message.guild.id]) return;
+	if (!Record) return;
 	if (!RecordChannel) return;
 	if (!SuggestionChannel) return;
-	if (!Suggestions.USEABLE === true) return;
-	if (!SuggestionChannel.id === SentMessageChannel.id) return Message.channel.send('Incalid');
+	if (Suggestions.USEABLE === false) return;
+	// if (!SuggestionChannel.id === SentMessageChannel.id) return Message.channel.send('Incalid');
 	
 	//Message.channel.send(`SUGGESTIONS: ${SuggestionChannel.id} | CURRENT: ${SentMessageChannel.id}`)
 	Message.channel.send(':white_check_mark: Successful!')
