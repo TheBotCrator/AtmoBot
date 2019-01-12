@@ -87,7 +87,7 @@ Bot.on("guildMemberRemove", Member => {
 Bot.on("message", Message => {
 	if (Message.author.equals(Bot.user)) return;
 	if (Message.channel.type === "dm") return;
-	if (Message.content.startsWith(Prefix)) return;
+	//if (Message.content.startsWith(Prefix)) return;
 	
 	let Record = Records[Message.guild.id] 
 	if (!Records[Message.guild.id]) return Message.channel.send(`P1`);
