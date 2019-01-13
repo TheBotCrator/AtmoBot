@@ -89,14 +89,11 @@ Bot.on("message", Message => {
 	if (Message.channel.type === "dm") return;
 	if (Message.content.startsWith(Prefix)) return;
 	
-	let Record = Records[Message.guild.id] 
 	if (!Records[Message.guild.id]) return;
+	if (!Records[Message.guild.id].Suggestions) return;
 	
-	let Suggestions = Record.Suggestions 
-	if (!Suggestions) return;
-	
-	let RecordChannel = Message.guild.channels.get(Suggestions.RECORD)
-	let SuggestionChannel = Message.guild.channels.get(Suggestions.CHANNEL)
+	let RecordChannel = Message.guild.channels.get(Records[Message.guild.id].Suggestions.RECORD)
+	let SuggestionChannel = Message.guild.channels.get(Records[Message.guild.id].Suggestions.CHANNEL)
 	let SentMessageChannel = Message.channel
         Message.channel.send(`SUGGESTIONS: ${SuggestionChannel.id} | CURRENT: ${SentMessageChannel.id}`)
 
