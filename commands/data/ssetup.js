@@ -24,8 +24,7 @@ class SSetupCommand extends Commando.Command {
 			};
 			// ly!ssetup true channel-nameid channel-logid 
 			
-			let TableFunction = Records[message.guild.id]
-			if (!TableFunction.Suggestions) {
+			if (!Records[message.guild.id].Suggestions) {
 				Records[message.guild.id].Suggestions = { }
 			};
 			
