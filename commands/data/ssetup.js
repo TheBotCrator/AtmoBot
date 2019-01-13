@@ -20,13 +20,13 @@ class SSetupCommand extends Commando.Command {
 			let Args = message.content.split(" ")
 
 			if (!Records[message.guild.id]) { 
-				Records[message.guild.id] = { }
+				Records[message.guild.id] = { 
+					Suggestions: {
+					
+					}
+				}
 			};
 			// ly!ssetup true channel-nameid channel-logid 
-			
-			if (!Records[message.guild.id].Suggestions) {
-				Records[message.guild.id].Suggestions = { }
-			};
 			
 			if (Args[1] === "true") {
 				Records[message.guild.id].Suggestions.USEABLE = true
