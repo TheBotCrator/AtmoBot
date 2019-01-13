@@ -89,17 +89,22 @@ Bot.on("message", Message => {
 	if (Message.channel.type === "dm") return;
 	if (Message.content.startsWith(Prefix)) return;
 	if (Testing === true) return;
-
+	
+	Message.channel.send('91')
 	if (!Records[Message.guild.id]) return;
 	if (!Records[Message.guild.id].Suggestions) return;
 	
+	Message.channel.send('92')
 	let RecordChannel = Message.guild.channels.get(Records[Message.guild.id].Suggestions.RECORD)
 	let SuggestionChannel = Message.guild.channels.get(Records[Message.guild.id].Suggestions.CHANNEL)
-    Message.channel.send(`SUGGESTIONS: ${SuggestionChannel.id} | CURRENT: ${Message.channel.id}`)
+        Message.channel.send(`SUGGESTIONS: ${SuggestionChannel.id} | CURRENT: ${Message.channel.id}`)
 	
-	if (!RecordChannel) return
+	if (!RecordChannel) return;
+	Message.channel.send('93')
 	if (!SuggestionChannel) return;
+	Message.channel.send('94')
 	if (SuggestionChannel.id == Message.channel.id){
+		Message.channel.send('95')
 		if (!Records[Message.guild.id].Suggestions.USEABLE === true) return;
 		Message.channel.send(':white_check_mark: Successful!')
 		
