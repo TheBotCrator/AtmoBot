@@ -116,10 +116,9 @@ Bot.on("message", Message => {
 							
 		let ActualChannel = Bot.channels.get(RecordChannel)
 		if (ActualChannel){ 
-			RecordChannel.send(SecondEmbed); 
-			return	
-		} else {
-				Message.channel.send(":x: Cannot Log Suggestions due to Error!")
+			ActualChannel.send(SecondEmbed); 
+		} else { 
+			return Message.channel.send(":x: Cannot Log Suggestions due to Error!")
 		}
 
 		Message.channel.send(FirstEmbed).delete(5000);;
