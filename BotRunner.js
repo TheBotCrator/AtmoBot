@@ -84,7 +84,7 @@ Bot.on("guildMemberRemove", Member => {
         leaveChannel.send(LeaveEmbed)
     }
 });
-Bot.on("message", Message => {
+/*Bot.on("message", Message => {
 	if (Message.author.equals(Bot.user)) return;
 	if (Message.channel.type === "dm") return;
 	if (Message.content.startsWith(Prefix)) return;
@@ -124,7 +124,7 @@ Bot.on("message", Message => {
 		Message.channel.send(FirstEmbed).delete(5000);;
 				
 	}
-});
+});*/
 Bot.on("ready", function () {
     console.log(`${Name}: Lyaboo Bot has loaded and is ready for Usage. Online at ${Bot.guilds.size}`);
     if (Testing === false) {
