@@ -24,8 +24,7 @@ class BotCommand extends Commando.Command {
             .addField("Bot Library", "Discord.Js")
 	    .addField("Bot Commands", `${Prefix}help`)
             .addField("Bot Prefix", `'${Prefix}'`)
-	    .addField("Bot Version", `${Version}`)
-            .addBlankField(true);
+	    .addField("Bot Version", `${Version}`);
 		
 	let SecondEmbed = new Discord.RichEmbed()
 		.setAuthor("Lyaboo Dedications", "https://cdn.discordapp.com/avatars/513448452987027478/f63754a4f5e489cf7c03a0d797ca70b3.png?size=256")
