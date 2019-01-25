@@ -6,10 +6,10 @@ const Commando = require('discord.js-commando'); // Discord Secondary Library us
 const forEachTimeout = require('foreach-timeout'); // Used for Rainbow Roles.
 
 // Getting Bot Version Information
-global.Version = "0.0.9"; // Bot's Version.
+global.Version = "0.1.0"; // Bot's Version.
 global.Testing = false; // To Check if the Testing Version of the Bot is Enabled.
 global.Prefix = "ly!"; // Prefix for Bot Commands.
-global.Status = `${Prefix}help | Sector Welcome Assistant. BMT09`; // Status of the Bot.
+global.Status = `${Prefix}help | Sector Welcome Assistant.`; // Status of the Bot.
 global.Colors = ["FF0D00", "FF2800", "FF3D00", "FF4F00", "FF5F00", "FF6C00", "FF7800", "FF8300", "FF8C00", "FF9500", "FF9E00", "FFA500", "FFAD00", "FFB400", "FFBB00", "FFC200", "FFC900", "FFCF00", "FFD600", "FFDD00", "FFE400", "FFEB00", "FFF200", "FFFA00", "F7FE00", "E5FB00", "D5F800", "C6F500", "B7F200", "A8F000", "98ED00", "87EA00", "74E600", "5DE100", "41DB00", "1DD300", "00C618", "00BB3F", "00B358", "00AC6B", "00A67C", "009E8E", "028E9B", "06799F", "0969A2", "0C5DA5", "0E51A7", "1047A9", "133CAC", "1531AE", "1924B1", "1F1AB2", "2A17B1", "3415B0", "3C13AF", "4512AE", "4E10AE", "560EAD", "600CAC", "6A0AAB", "7608AA", "8506A9", "9702A7", "AD009F", "BC008D", "C7007D", "D0006E", "D8005F", "DF004F", "E7003E", "EF002A", "F80012"];
 global.Stop = [ ]
 
@@ -60,6 +60,7 @@ Bot.on("guildMemberAdd", Member => {
 
     const welcomeChannel = Member.guild.channels.find('name', 'general');
     if (welcomeChannel) {
+	let WelcomeMessage = `${Member.user} Welcome to Sector, please remember to read <#521863469482377217> and to be active to achieve roles.`
         let WelcomeEmbed = new Discord.RichEmbed()
             .setTitle("Member has joined!")
             .setThumbnail(Member.user.displayAvatarURL)
@@ -67,6 +68,7 @@ Bot.on("guildMemberAdd", Member => {
             .setColor("#27037e")
             .setFooter(`You are the ${Member.guild.memberCount} member to joined.`)
             .setTimestamp();
+	welcomeChannel.send(WelcomeMessage)
         welcomeChannel.send(WelcomeEmbed)
     }
 });
@@ -102,7 +104,6 @@ Bot.on("message", Message => {
 		console.log("Five")
 		if (!Records[Message.guild.id].Suggestions.USEABLE === true) return; 
 		Message.delete(100)
-		Message.channel.send(':white_check_mark: Successful!').then(Message => Message.delete(1000))
 		
 		let FirstEmbed = new Discord.RichEmbed()
 		.setColor("6e00ff")
