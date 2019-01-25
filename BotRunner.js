@@ -60,11 +60,11 @@ Bot.on("guildMemberAdd", Member => {
 
     const welcomeChannel = Member.guild.channels.find('name', 'general');
     if (welcomeChannel) {
-	let WelcomeMessage = `${Member.user} Welcome to Sector, please remember to read <#521863469482377217> and to be active to achieve roles.`
+	let WelcomeMessage = `${Member.user}`
         let WelcomeEmbed = new Discord.RichEmbed()
             .setTitle("Member has joined!")
             .setThumbnail(Member.user.displayAvatarURL)
-            .setDescription(`Welcome ${Member.user} to ${Member.guild.name}.`)
+            .setDescription(`Welcome ${Member.user} to ${Member.guild.name}. please remember to read <#521863469482377217> and to be active to achieve roles. We are a community of people who simply try to have fun. If you have any questions, please see an Moderator or a Person of Higher Role in the Server.`)
             .setColor("#27037e")
             .setFooter(`You are the ${Member.guild.memberCount} member to joined.`)
             .setTimestamp();
