@@ -1,5 +1,17 @@
-const Commando = require('discord.js-commando')
-const Discord = require('discord.js')
+const Commando = require('discord.js-commando');
+const Discord = require('discord.js');
+const Database = require('quick.db');
+
+async function Setup(Guild) { 
+	let Fetch = await Database.fetch(`${Guild.id}`)
+	if (Fetch === null) {
+		let Record = new Database.table(`${Guild.id}`)
+		Record.set('USEABLE', false)
+		Record.set('CHANNEL', 0)
+		Record.set('RECORD', 0)
+		return
+	}	
+}
 
 class SSetupCommand extends Commando.Command { 
 	constructor(client){
@@ -18,32 +30,26 @@ class SSetupCommand extends Commando.Command {
 		
 		if (message.member.hasPermission('ADMINISTRATOR')) {
 			let Args = message.content.split(" ")
-
-			if (!Records[message.guild.id]) { 
-				Records[message.guild.id] = { 
-					Suggestions: {
-					
-					}
-				}
-			};
-			// ly!ssetup true channel-nameid channel-logid 
+			Setup(message.guild)
 			
-			console.log(`${Args}`)
-			if (Args[1] === "true") {
-				Records[message.guild.id].Suggestions.USEABLE = true
-			} else {
-				Records[message.guild.id].Suggestions.USEABLE = false
-			};
-			
-			let SuggestionChannel = message.guild.channels.get(Args[2]);
-			let SuggestionLogs = message.guild.channels.get(Args[3]);
-			if (!SuggestionChannel) return message.channel.send(":x: Suggestions Channel Id Invalid!")
-			if (!SuggestionLogs) return message.channel.send(":x: Suggestions Log Channel Id Invalid!");
-			
-			Records[message.guild.id].Suggestions.CHANNEL = Args[2]
-			Records[message.guild.id].Suggestions.RECORD = Args[3]
-			
-			let RichEmbed = new Discord.RichEmbed()
+			let GuildDB = await Database.get(`${Guild.id}`)
+			if (!GuildDB === null) {
+				if (Args[1] === "true") {
+					GuildDB.set('${Guild.id}.USEABLE', true)
+				} else {
+					GuildDB.set('${Guild.id}.USEABLE', false)
+				};
+				
+				let SuggestionChannel = message.guild.channels.get(Args[2]);
+				let SuggestionLogs = message.guild.channels.get(Args[3]);
+				if (!SuggestionChannel) return message.channel.send(":x: Suggestions Channel Id Invalid!")
+				if (!SuggestionLogs) return message.channel.send(":x: Suggestions Log Channel Id Invalid!");
+				
+				GuildDB.set('${Guild.id}.CHANNEL', Args[2])
+				GuildDB.set('${Guild.id}.RECORD', Args[3])
+				
+						
+				let RichEmbed = new Discord.RichEmbed()
 				.setTitle("Suggestion Setup Complete!")
 				.setThumbnail(message.member.user.displayAvatarURL)
 				.setColor("#27037e")
@@ -52,9 +58,9 @@ class SSetupCommand extends Commando.Command {
 				.addField("NORMAL CHANNEL", `${Args[2]}`)
 				.addField("LOG CHANNEL", `${Args[3]}`)
 				.setTimestamp();
-			message.channel.send(":white_check_mark: Setup Successfully.");
-			return message.channel.send(RichEmbed);
-			
+				message.channel.send(":white_check_mark: Setup Successfully.");
+				return message.channel.send(RichEmbed);
+			}	
 		} else {
 			message.channel.send(":x: Missing Permissions 'ADMINISTRATOR'")
 			return;
