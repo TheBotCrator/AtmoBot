@@ -90,12 +90,12 @@ Bot.on("message", Message => {
 	if (Message.content.startsWith(Prefix)) return;
 	if (Testing === true) return;
 	
-	let Records = await Database.get(`${Message.guild.id}`)
+	let Records = await Database.get(`Suggestions`)
 	if (Records === null) return Message.channel.send(":x: Guild Not Registered in Database."); 
 	
-	let RecordChannel = await Database.get(`${Message.guild.id}.RECORD`)
-	let SuggestionChannel = await Database.get(`${Message.guild.id}.CHANNEL`)
-	let Useable = await Database.get(`${Message.guild.id}.USEABLE`)
+	let RecordChannel = await Database.get(`Suggestions.RECORD`)
+	let SuggestionChannel = await Database.get(`$Suggestions.CHANNEL`)
+	let Useable = await Database.get(`$Suggestions.USEABLE`)
 	
 	if (!RecordChannel) return Message.channel.send(":x: Record Channel Not Registered in Server.");
     if (!SuggestionChannel) return Message.channel.send(":x: Suggestions Channel Not Registered in Server.");
