@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const Database = require('quick.db');
 
 async function Setup() { 
-	let Fetch = await Database.fetch(`Suggestions`)
+	let Fetch = await Database.get(`Suggestions`)
 	if (Fetch === null) {
 		Database.set(`Suggestions`, { })
 		Database.push('Suggestions.USEABLE', false)
