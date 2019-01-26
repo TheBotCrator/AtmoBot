@@ -3,13 +3,14 @@
 const Name = "Lyaboo Bot"; // Getting Bot Name, used in various Functions.
 const Discord = require('discord.js'); // Discord Library used for Functions of the Bot.
 const Commando = require('discord.js-commando'); // Discord Secondary Library used for Functions of the Bot.
-const forEachTimeout = require('foreach-timeout'); // Used for Rainbow Roles.
+const Timeout = require('foreach-timeout'); // Used for Reoccurring Functions..
+const Database = require('quick.db'); // Used for Storing Things.
 
 // Getting Bot Version Information
 global.Version = "0.1.0"; // Bot's Version.
 global.Testing = false; // To Check if the Testing Version of the Bot is Enabled.
 global.Prefix = "ly!"; // Prefix for Bot Commands.
-global.Status = `${Prefix}help | Sector Welcome Assistant. FP`; // Status of the Bot.
+global.Status = `${Prefix}help | Sector Welcome Assistant. Lily Pad`; // Status of the Bot.
 global.Colors = ["FF0D00", "FF2800", "FF3D00", "FF4F00", "FF5F00", "FF6C00", "FF7800", "FF8300", "FF8C00", "FF9500", "FF9E00", "FFA500", "FFAD00", "FFB400", "FFBB00", "FFC200", "FFC900", "FFCF00", "FFD600", "FFDD00", "FFE400", "FFEB00", "FFF200", "FFFA00", "F7FE00", "E5FB00", "D5F800", "C6F500", "B7F200", "A8F000", "98ED00", "87EA00", "74E600", "5DE100", "41DB00", "1DD300", "00C618", "00BB3F", "00B358", "00AC6B", "00A67C", "009E8E", "028E9B", "06799F", "0969A2", "0C5DA5", "0E51A7", "1047A9", "133CAC", "1531AE", "1924B1", "1F1AB2", "2A17B1", "3415B0", "3C13AF", "4512AE", "4E10AE", "560EAD", "600CAC", "6A0AAB", "7608AA", "8506A9", "9702A7", "AD009F", "BC008D", "C7007D", "D0006E", "D8005F", "DF004F", "E7003E", "EF002A", "F80012"];
 global.Stop = [ ]
 
@@ -17,9 +18,6 @@ global.Stop = [ ]
 global.Bot = new Commando.Client({
     commandPrefix: Prefix
 });
-global.Records = {
-    
-}
 
 Bot.registry
     .registerGroup('info', 'Information Commands')
@@ -28,10 +26,10 @@ Bot.registry
 	.registerDefaults()
     .registerCommandsIn(__dirname + "/commands");
 
-// Getting Rainbow Functions
+// Getting Functions
 
 async function Color() {
-    forEachTimeout(Colors, (Color) => {
+    Timeout(Colors, (Color) => {
         Bot.guilds.forEach((guild) => {
             if (!Stop.includes(guild.id)) {
                 let role = guild.roles.find('name', 'Certified Customary');
@@ -61,7 +59,7 @@ Bot.on("guildMemberAdd", Member => {
     const welcomeChannel = Member.guild.channels.find('name', 'general');
     if (welcomeChannel) {
 	let WelcomeMessage = `${Member.user}`
-        let WelcomeEmbed = new Discord.RichEmbed()
+    let WelcomeEmbed = new Discord.RichEmbed()
             .setTitle("Member has joined!")
             .setThumbnail(Member.user.displayAvatarURL)
             .setDescription(`Welcome ${Member.user} to ${Member.guild.name}. please remember to read <#521863469482377217> and to be active to achieve roles. We are a community of people who simply try to have fun. If you have any questions, please see an Moderator or a Person of Higher Role in the Server. To make a suggestion, please see <#522104070647971840> and note that its a Beta feature in progress.`)
@@ -69,7 +67,7 @@ Bot.on("guildMemberAdd", Member => {
             .setFooter(`You are the ${Member.guild.memberCount} member to joined.`)
             .setTimestamp();
 	welcomeChannel.send(WelcomeMessage)
-        welcomeChannel.send(WelcomeEmbed)
+    welcomeChannel.send(WelcomeEmbed)
     }
 });
 Bot.on("guildMemberRemove", Member => {
@@ -92,17 +90,18 @@ Bot.on("message", Message => {
 	if (Message.content.startsWith(Prefix)) return;
 	if (Testing === true) return;
 	
-	if (!Records[Message.guild.id]) return;
-	if (!Records[Message.guild.id].Suggestions) return; 
+	let Records = await Database.get(`${Message.guild.id}`)
+	if (Records === null) return Message.channel.send(":x: Guild Not Registered in Database."); 
 	
-	let RecordChannel = Records[Message.guild.id].Suggestions.RECORD
-	let SuggestionChannel = Records[Message.guild.id].Suggestions.CHANNEL
-	if (!RecordChannel) return;
-    if (!SuggestionChannel) return;
+	let RecordChannel = await Database.get(`${Message.guild.id}.RECORD`)
+	let SuggestionChannel = await Database.get(`${Message.guild.id}.CHANNEL`)
+	let Useable = await Database.get(`${Message.guild.id}.USEABLE`)
+	
+	if (!RecordChannel) return Message.channel.send(":x: Record Channel Not Registered in Server.");
+    if (!SuggestionChannel) return Message.channel.send(":x: Suggestions Channel Not Registered in Server.");
 	
 	if (Number(Message.channel.id) === Number(SuggestionChannel)){
-		console.log("Five")
-		if (!Records[Message.guild.id].Suggestions.USEABLE === true) return; 
+		if (!Useable === true) return Message.channel.send(":x: Suggestions Feature Not Useable in Server."); 
 		Message.delete(100)
 		
 		let FirstEmbed = new Discord.RichEmbed()
