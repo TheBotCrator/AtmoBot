@@ -2,13 +2,13 @@ const Commando = require('discord.js-commando');
 const Discord = require('discord.js');
 const Database = require('quick.db');
 
-async function Setup(Guild) { 
+async function Setup() { 
 	let Fetch = await Database.fetch(`${Guild.id}`)
 	if (Fetch === null) {
-		Database.set(`${Guild.id}`, { })
-		Database.push('${Guild.id}.USEABLE', false)
-		Database.push('${Guild.id}.CHANNEL', 0)
-		Database.push('${Guild.id}.RECORD', 0)
+		Database.set(`Suggestions`, { })
+		Database.push('Suggestions.USEABLE', false)
+		Database.push('Suggestions.CHANNEL', 0)
+		Database.push('Suggestions.RECORD', 0)
 		return
 	}	
 }
@@ -30,14 +30,14 @@ class SSetupCommand extends Commando.Command {
 		
 		if (message.member.hasPermission('ADMINISTRATOR')) {
 			let Args = message.content.split(" ")
-			Setup(message.guild)
+			Setup()
 			
-			let GuildDB = await Database.get(`${Guild.id}`)
+			let GuildDB = await Database.get(`Suggestions`)
 			if (!GuildDB === null) {
 				if (Args[1] === "true") {
-					Database.set('${Guild.id}.USEABLE', true)
+					Database.set('Suggestions.USEABLE', true)
 				} else {
-					Database.set('${Guild.id}.USEABLE', false)
+					Database.set('Suggestions.USEABLE', false)
 				};
 				
 				let SuggestionChannel = message.guild.channels.get(Args[2]);
@@ -45,8 +45,8 @@ class SSetupCommand extends Commando.Command {
 				if (!SuggestionChannel) return message.channel.send(":x: Suggestions Channel Id Invalid!")
 				if (!SuggestionLogs) return message.channel.send(":x: Suggestions Log Channel Id Invalid!");
 				
-				Database.set('${Guild.id}.CHANNEL', Args[2])
-				Database.set('${Guild.id}.RECORD', Args[3])
+				Database.set('Suggestions.CHANNEL', Args[2])
+				Database.set('Suggestions.RECORD', Args[3])
 				
 						
 				let RichEmbed = new Discord.RichEmbed()
