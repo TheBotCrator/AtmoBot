@@ -4,7 +4,7 @@ const Name = "Lyaboo Bot"; // Getting Bot Name, used in various Functions.
 const Discord = require('discord.js'); // Discord Library used for Functions of the Bot.
 const Commando = require('discord.js-commando'); // Discord Secondary Library used for Functions of the Bot.
 const Timeout = require('foreach-timeout'); // Used for Reoccurring Functions..
-//const Database = require('quick.db'); // Used for Storing Things.
+const Database = require('quick.db'); // Used for Storing Things.
 
 // Getting Bot Version Information
 global.Version = "0.1.0"; // Bot's Version.
