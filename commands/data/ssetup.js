@@ -52,9 +52,7 @@ class SSetupCommand extends Commando.Command {
 				.addField("NORMAL CHANNEL", `${Args[2]}`)
 				.addField("LOG CHANNEL", `${Args[3]}`)
 				.setTimestamp();
-			message.channel.send(":white_check_mark: Setup Successfully.");
-			return message.channel.send(RichEmbed);
-			
+			return message.channel.send(":white_check_mark: Setup Successfully.", RichEmbed);
 		} else {
 			message.channel.send(":x: Missing Permissions 'ADMINISTRATOR'")
 			return;
@@ -63,4 +61,3 @@ class SSetupCommand extends Commando.Command {
 }
 
 module.exports = SSetupCommand
-	

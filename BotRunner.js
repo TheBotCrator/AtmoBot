@@ -3,7 +3,7 @@
 const Name = "Lyaboo Bot"; // Getting Bot Name, used in various Functions.
 const Discord = require('discord.js'); // Discord Library used for Functions of the Bot.
 const Commando = require('discord.js-commando'); // Discord Secondary Library used for Functions of the Bot.
-const forEachTimeout = require('foreach-timeout'); // Used for Rainbow Roles.
+const Timeout = require('foreach-timeout'); // Used for Rainbow Roles.
 
 // Getting Bot Version Information
 global.Version = "0.1.0"; // Bot's Version.
@@ -31,7 +31,7 @@ Bot.registry
 // Getting Rainbow Functions
 
 async function Color() {
-    forEachTimeout(Colors, (Color) => {
+    Timeout(Colors, (Color) => {
         Bot.guilds.forEach((guild) => {
             if (!Stop.includes(guild.id)) {
                 let role = guild.roles.find('name', 'Certified Customary');
@@ -60,16 +60,15 @@ Bot.on("guildMemberAdd", Member => {
 
     const welcomeChannel = Member.guild.channels.find('name', 'general');
     if (welcomeChannel) {
-	let WelcomeMessage = `${Member.user}`
-        let WelcomeEmbed = new Discord.RichEmbed()
+		let WelcomeMessage = `${Member.user}`
+		let WelcomeEmbed = new Discord.RichEmbed()
             .setTitle("Member has joined!")
             .setThumbnail(Member.user.displayAvatarURL)
-            .setDescription(`Welcome ${Member.user} to ${Member.guild.name}. please remember to read <#521863469482377217> and to be active to achieve roles. We are a community of people who simply try to have fun. If you have any questions, please see an Moderator or a Person of Higher Role in the Server. To make a suggestion, please see <#522104070647971840> and note that its a Beta feature in progress.`)
+            .setDescription(`Welcome ${Member.user} to ${Member.guild.name}. Please remember to read <#521863469482377217> and to be active to achieve roles. We are a community of people who simply try to have fun. If you have any questions, please see an Moderator or a Person of Higher Role in the Server. To make a suggestion, please see <#522104070647971840> and note that its a Beta feature in progress.`)
             .setColor("#27037e")
             .setFooter(`You are the ${Member.guild.memberCount} member to joined.`)
             .setTimestamp();
-	welcomeChannel.send(WelcomeMessage)
-        welcomeChannel.send(WelcomeEmbed)
+		welcomeChannel.send(WelcomeMessage, WelcomeEmbed)
     }
 });
 Bot.on("guildMemberRemove", Member => {
