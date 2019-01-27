@@ -25,5 +25,5 @@ class ServerCommand extends Commando.Command {
 	}
 }
 
-module.exports = SSetupCommand
+module.exports = ServerCommand
 	
