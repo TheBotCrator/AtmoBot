@@ -1,5 +1,6 @@
 const Commando = require('discord.js-commando')
-const { Discord, Util } = require('discord.js')
+const Discord = require('discord.js')
+const { Util } = require('discord.js')
 const YTDL = require("ytdl-core")
 const SimpleAPI = require('simple-youtube-api');
 const Youtube = new SimpleAPI(API)
