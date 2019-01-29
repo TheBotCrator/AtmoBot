@@ -38,9 +38,6 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 			return Message.channel.send(`:warning: I could not join the voice channel: ${error}`);
 		}
 	} else {
-		Records[Message.guild.id].Music.Queue.push(Song);
-		console.log(Records[Message.guild.id].Music.Queue);
-		if (Playlist) return undefined;
 		let Embed = new Discord.RichEmbed()
 		.setColor("#27037e")
 		.setTitle("Lyaboo Music")
@@ -49,7 +46,10 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 		.addField("Song Link", `${Video.url}`, true)
 		.addField("Song Requester", `${Song.requester}`, true);
 		
-		else return Message.channel.send(`:musical_note: A song has been added to the queue!`, Embed);
+		Records[Message.guild.id].Music.Queue.push(Song);
+		console.log(Records[Message.guild.id].Music.Queue);
+		if (Playlist) return undefined;
+			else return Message.channel.send(`:musical_note: A song has been added to the queue!`, Embed);
 	}
 	return undefined;
 }
