@@ -1,5 +1,5 @@
 const Commando = require('discord.js-commando')
-const Discord = require('discord.js')
+const { Util } = require('discord.js')
 const YTDL = require("ytdl-core")
 const SimpleAPI = require('simple-youtube-api');
 const Youtube = new SimpleAPI(API)
@@ -27,7 +27,7 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 		Records[Message.guild.id].Music.Queue.push(Song);
 
 		try {
-			var Connection = await VoiceChanel.join();
+			var Connection = await VoiceChannel.join();
 			Records[Message.guild.id].Music.Connection = Connection;
 			Play(Message.guild, Records[Message.guild.id].Music.Queue[0]);
 		} catch (error) {
