@@ -34,6 +34,9 @@ class PlayCommand extends Commando.Command {
             return
         }
 
+        let Validation = YTDL.validateURL(Args[1])
+        if (!Validation) return message.channel.send(":warning: Song URL Invalid, please check again.")
+	
         if (!message.member.voiceChannel) {
             message.channel.send("I think it may work better if you are in a voice channel!");
         }
