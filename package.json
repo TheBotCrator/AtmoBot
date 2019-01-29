@@ -10,7 +10,7 @@
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
     "foreach-timeout": "^2.0.2",
-    "npm": "^6.4.1",
+    "npm": "^6.7.0",
 	"ytdl-core": "^0.29.1",
 	"node-opus": "^0.3.1",
 	"simple-youtube-api": "^3.0.0"
