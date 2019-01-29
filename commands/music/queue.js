@@ -23,7 +23,7 @@ class StopCommand extends Commando.Command {
 		
 	    let Embed = new Discord.RichEmbed()
 	    .setTitle(":musical_note: Song Queue :musical_note:")
-	    .setDecription(`${Queue.Queue.map(song => `**-** ${song.title}`).join('\n')}`)
+	    .setDescription(`${Queue.Queue.map(song => `**-** ${song.title}`).join('\n')}`)
 	    .addField("Now Playing", `${Queue.Queue[0].title}`)
 	    return message.channel.send("Current Songs Playing Now on Lyaboo", Embed)
     }
