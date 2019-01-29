@@ -33,13 +33,13 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 		} catch (error) {
 			console.error(`I could not join the voice channel: ${error}`);
 			Records[Message.guild.id].Music.delete(Message.guild.id);
-			return Message.channel.send(`I could not join the voice channel: ${error}`);
+			return Message.channel.send(`:warning: I could not join the voice channel: ${error}`);
 		}
 	} else {
 		Records[Message.guild.id].Music.Queue.push(Song);
 		console.log(Records[Message.guild.id].Music.Queue);
 		if (Playlist) return undefined;
-		else return Message.channel.send(`:white_check_mark: **${Song.title}** has been added to the queue!`);
+		else return Message.channel.send(`:musical_note: **${Song.title}** has been added to the queue!`);
 	}
 	return undefined;
 }
@@ -53,7 +53,7 @@ async function Play(Guild, Song) {
 	}
 	console.log(Queue.Queue);
 
-	const Dispatcher = Queue.Connection.playStream(YTDL(Song.url, { filter: "audioonly", quality: "highestaudio"}))
+	const Dispatcher = Queue.Connection.playStream(YTDL(Song.url, { filter: "audioonly" }))
 		.on('end', Reason => {
 			if (Reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
 			else console.log(Reason);
@@ -63,7 +63,7 @@ async function Play(Guild, Song) {
 		.on('error', Error => console.error(Error));
 	Dispatcher.setVolumeLogarithmic(Queue.Volume / 5);
 
-	Queue.Text.send(`:white_check_mark: Start playing: **${Song.title}**`);
+	Queue.Text.send(`:musical_note: Start playing: **${Song.title}**`);
 }
 
 
