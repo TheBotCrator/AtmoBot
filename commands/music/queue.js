@@ -8,7 +8,7 @@ class StopCommand extends Commando.Command {
             name: 'np',
             group: 'music',
             memberName: "np",
-            description: 'Will Show the current youtube link playing in a Voice Channel.'
+            description: 'Will Show the current list of youtube links playing in a Voice Channel.'
         });
     }
 
