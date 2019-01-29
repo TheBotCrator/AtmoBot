@@ -24,9 +24,7 @@ class QueueCommand extends Commando.Command {
 	    let Embed = new Discord.RichEmbed()
 	    .setColor("#27037e")
 	    .setTitle(":musical_note: Song Queue :musical_note:")
-	    .setDescription(`${Queue.Queue.map(song => `${++Count}. ${song.title}`).join('\n')}`)
-	    .addField("Now Playing", `${Queue.Queue[0].title}`)
-	    .addField("Requested By", `${Queue.Queue[0].requester}`);
+	    .setDescription(`${Queue.Queue.map(song => `${++Count}. ${song.title}`).join('\n')}`);
 	    return message.channel.send("Current Songs Playing Now on Lyaboo", Embed)
     }
 }
