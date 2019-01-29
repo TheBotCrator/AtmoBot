@@ -6,7 +6,7 @@ const Commando = require('discord.js-commando'); // Discord Secondary Library us
 const Timeout = require('foreach-timeout'); // Used for Rainbow Roles.
 
 // Getting Bot Version Information
-global.Version = "0.1.6"; // Bot's Version.
+global.Version = "0.1.62"; // Bot's Version.
 global.Testing = false; // To Check if the Testing Version of the Bot is Enabled.
 global.Prefix = "="; // Prefix for Bot Commands.
 global.Status = `${Prefix}help | Sector Welcome Assistant. ${Version}`; // Status of the Bot.
