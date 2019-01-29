@@ -113,14 +113,12 @@ class PlayCommand extends Commando.Command {
 				try {
 					var Videos = await Youtube.searchVideos(SearchString, 10);
 					let Count = 0;
-					message.channel.send(`
-__**Song selection:**__
-
-${Videos.map(Videos2 => `**${++Count} -** ${Videos2.title}`).join('\n')}
-
-Please provide a value to select one of the search results ranging from 1-10.
-					`);
-
+					let Embed = new Discord.RichEmbed()
+					.setColor("#27037e")
+					.setThumbnail(message.guild.iconURL)
+					.setDescription(`:musical_notes: ${Videos.map(Videos2 => `**${++Count} -** ${Videos2.title}`).join('\n')}`)
+					.setTitle("Song Selection");
+					message.channel.send(`Please provide a value to select one of the search results ranging from 1-10.`, Embed)
 					try {
 						var Response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
 							maxMatches: 1,
@@ -129,7 +127,7 @@ Please provide a value to select one of the search results ranging from 1-10.
 						});
 					} catch (err) {
 						console.error(err);
-						return message.channel.send(':x: No or invalid value entered, cancelling video selection.');
+						return message.channel.send(':x: No or invalid value entered, canceLling video selection.');
 					}
 					const Index = parseInt(Response.first().content);
 					var Video = await Youtube.getVideoByID(Videos[Index - 1].id);
