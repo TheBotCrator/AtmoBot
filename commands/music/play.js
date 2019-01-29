@@ -47,8 +47,8 @@ async function Play(Guild, Song) {
 	const Queue = Records[Guild.id].Music;
 
 	if (!Song) {
-		Queue.Voice.leave();
-		Records[Guild.id].Music.delete();
+		Queue.Voice.leave(); 
+		delete Records[Guild.id].Music;
 		return;
 	}
 	console.log(Queue.Queue);
