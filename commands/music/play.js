@@ -139,6 +139,7 @@ Please provide a value to select one of the search results ranging from 1-10.
 				}
 			}
 			return HandleVideo(Video, message, VoiceChannel);
+	}
     }
 }
 
