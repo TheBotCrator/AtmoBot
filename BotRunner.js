@@ -36,24 +36,25 @@ Bot.registry
 
 // Getting Rainbow Functions
 async function Color() {
-    Timeout(ColRan, (Color) => {
+    Timeout(ColRan, (Col1) => {
         Bot.guilds.forEach((guild) => {
             if (!Stop.includes(guild.id)) {
                 let role = guild.roles.find('name', 'Certified Customary');
                 if (role && role.editable)
-                    role.setColor(Color);
+                    role.setColor(Col1);
             }
         })
     }, 1500);
-    Timeout(ColZla, (Color) => {
+    Timeout(ColZla, (Col2) => {
         Bot.guilds.forEach((guild) => {
             if (!Stop.includes(guild.id)) {
                 let role = guild.roles.find('name', 'Certified Zladdy ☭');
                 if (role && role.editable)
-                    role.setColor(Color);
+                    role.setColor(Col2);
             }
         })
-    }, 1500).then(Color);
+    }, 1500)
+    Color()
 }
 
 // Getting Bot Functions
