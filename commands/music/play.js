@@ -41,7 +41,15 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 		Records[Message.guild.id].Music.Queue.push(Song);
 		console.log(Records[Message.guild.id].Music.Queue);
 		if (Playlist) return undefined;
-		else return Message.channel.send(`:musical_note: **${Song.title}** has been added to the queue!`);
+		let Embed = new Discord.RichEmbed()
+		.setColor("#27037e")
+		.setTitle("Lyaboo Music")
+		.setThumbnail(`${Video.thumbnails.default.url}`)
+		.addField("Song Name", `${Song.title}`, true)
+		.addField("Song Link", `${Video.url}`, true)
+		.addField("Song Requester", `${Song.requester}`, true);
+		
+		else return Message.channel.send(`:musical_note: A song has been added to the queue!`, Embed);
 	}
 	return undefined;
 }
