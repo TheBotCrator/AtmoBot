@@ -39,7 +39,7 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 		Records[Message.guild.id].Music.Queue.push(Song);
 		console.log(Records[Message.guild.id].Music.Queue);
 		if (Playlist) return undefined;
-		else return Message.channel.send(`:white_check_mark:**${Song.title}** has been added to the queue!`);
+		else return Message.channel.send(`:white_check_mark: **${Song.title}** has been added to the queue!`);
 	}
 	return undefined;
 }
@@ -53,7 +53,7 @@ async function Play(Guild, Song) {
 	}
 	console.log(Queue.Queue);
 
-	const Dispatcher = Queue.Connection.playStream(YTDL(Song.url))
+	const Dispatcher = Queue.Connection.playStream(YTDL(Song.url, { filter: "audioonly", quality: "highestaudio" }))
 		.on('end', Reason => {
 			if (Reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
 			else console.log(Reason);
