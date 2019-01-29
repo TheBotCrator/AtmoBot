@@ -53,7 +53,7 @@ async function Play(Guild, Song) {
 	}
 	console.log(Queue.Queue);
 
-	const Dispatcher = Queue.Connection.playStream(YTDL(Song.url, { filter: "audio", highWaterMark: 1024 * 1024 * 10 }, { passes: 1 }))
+	const Dispatcher = Queue.Connection.playStream(YTDL(Song.url, { filter: "audio", highWaterMark: 1024 * 1024 * 10 }, { passes: 5 }), { bitrate: Queue.Voice.bitrate / 1000 })
 		.on('end', Reason => {
 			if (Reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
 			else console.log(Reason);
