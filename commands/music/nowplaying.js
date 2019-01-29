@@ -21,7 +21,7 @@ class StopCommand extends Commando.Command {
         var Queue = Records[message.guild.id].Music;
        
 	    if (!Queue) return message.channel.send('There is nothing playing.');
-		return message.channel.send(`:white_check_mark: Now playing: **${Queue.Queue[0].title}**`);
+		return message.channel.send(`:musical_note: Now playing: **${Queue.Queue[0].title}** Requested by: **${Queue.Queue[0].requester}**`);
     }
 }
 
