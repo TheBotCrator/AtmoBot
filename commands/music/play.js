@@ -36,10 +36,10 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 			return Message.channel.send(`I could not join the voice channel: ${error}`);
 		}
 	} else {
-		Records[Message.guild.id].Music.Queue.push(song);
+		Records[Message.guild.id].Music.Queue.push(Song);
 		console.log(Records[Message.guild.id].Music.Queue);
 		if (Playlist) return undefined;
-		else return Message.channel.send(`:white_check_mark:**${song.title}** has been added to the queue!`);
+		else return Message.channel.send(`:white_check_mark:**${Song.title}** has been added to the queue!`);
 	}
 	return undefined;
 }
@@ -105,13 +105,13 @@ class PlayCommand extends Commando.Command {
 				const Video2 = await Youtube.getVideoByID(Video.id);
 				await HandleVideo(Video2, message, VoiceChannel, true);
 			}
-			return message.channel.send(`Playlist: **${playlist.title}** has been added to the queue!`);
+			return message.channel.send(`Playlist: **${Playlist.title}** has been added to the queue!`);
 		} else {
 			try {
 				var Video = await Youtube.getVideo(url);
 			} catch (error) {
 				try {
-					var Videos = await Youtube.searchVideos(searchString, 10);
+					var Videos = await Youtube.searchVideos(SearchString, 10);
 					let Count = 0;
 					message.channel.send(`
 __**Song selection:**__
