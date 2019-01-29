@@ -20,8 +20,13 @@ class StopCommand extends Commando.Command {
 
         var Queue = Records[message.guild.id].Music;
        
-	    if (!Queue) return message.channel.send('There is nothing playing.');
-		return message.channel.send(`:musical_note: Now playing: **${Queue.Queue[0].title}** Requested by: **${Queue.Queue[0].requester}**`);
+	if (!Queue) return message.channel.send('There is nothing playing.');
+	    let Embed = new Discord.RichEmbed()
+	    .setTitle(":musical_note: Current Song :musical_note:")
+	    .setColor()
+	    .addField("Now Playing", `${Queue.Queue[0].title}`)
+	    .addField("Requested By", `${Queue.Queue[0].requester}`);
+	return message.channel.send(Embed);
     }
 }
 
