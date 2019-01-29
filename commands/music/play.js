@@ -13,7 +13,8 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 	const Song = {
 		id: Video.id,
 		title: Util.escapeMarkdown(Video.title),
-		url: `https://www.youtube.com/watch?v=${Video.id}`
+		url: `https://www.youtube.com/watch?v=${Video.id}`,
+		requester: Message.author
 	};
 	
 	if (!Queue) {
@@ -64,7 +65,7 @@ async function Play(Guild, Song) {
 		.on('error', Error => console.error(Error));
 	Dispatcher.setVolumeLogarithmic(Queue.Volume / 5);
 
-	Queue.Text.send(`:musical_note: Start playing: **${Song.title}**`);
+	Queue.Text.send(`:musical_note: Now playing: **${Song.title}** Requested by: **${Song.requester}**`);
 }
 
 
