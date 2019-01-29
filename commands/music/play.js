@@ -95,8 +95,8 @@ class PlayCommand extends Commando.Command {
 			return message.channel.send(':warning: I cannot speak in this voice channel, make sure I have the proper permissions!');
 		}
 		
-		const SearchString = args.slice(1).join(' ');
-		const URL = args[1] ? args[1].replace(/<(.+)>/g, '$1') : '';
+		const SearchString = Args.slice(1).join(' ');
+		const URL = Args[1] ? Args[1].replace(/<(.+)>/g, '$1') : '';
 
 		if (URL.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
 			const Playlist = await Youtube.getPlaylist(URL);
