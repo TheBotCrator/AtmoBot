@@ -5,9 +5,9 @@ const YTDL = require("ytdl-core")
 class StopCommand extends Commando.Command {
     constructor(client) {
         super(client, {
-            name: 'np',
+            name: 'queue',
             group: 'music',
-            memberName: "np",
+            memberName: "queue",
             description: 'Will Show the current list of youtube links playing in a Voice Channel.'
         });
     }
