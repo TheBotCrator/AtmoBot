@@ -44,17 +44,7 @@ async function Color() {
                     role.setColor(Col1);
             }
         })
-    }, 1500);
-    Timeout(ColZla, (Col2) => {
-        Bot.guilds.forEach((guild) => {
-            if (!Stop.includes(guild.id)) {
-                let role = guild.roles.find('name', 'Certified Zladdy ☭');
-                if (role && role.editable)
-                    role.setColor(Col2);
-            }
-        })
-    }, 1500)
-    Color()
+    }, 1500).then(Color);
 }
 
 // Getting Bot Functions
