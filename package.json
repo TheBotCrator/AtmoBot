@@ -9,7 +9,9 @@
   "dependencies": {
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
+    "foreach-timeout": "^2.0.2",
     "npm": "^6.4.1",
-    "foreach-timeout": "2.0.2"
+	"ytdl-core": "^0.29.1",
+	"node-opus": "^0.3.1"
   }
 }

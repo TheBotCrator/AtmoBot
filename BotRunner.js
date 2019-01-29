@@ -6,7 +6,7 @@ const Commando = require('discord.js-commando'); // Discord Secondary Library us
 const Timeout = require('foreach-timeout'); // Used for Rainbow Roles.
 
 // Getting Bot Version Information
-global.Version = "0.1.0"; // Bot's Version.
+global.Version = "0.1.5"; // Bot's Version.
 global.Testing = false; // To Check if the Testing Version of the Bot is Enabled.
 global.Prefix = "="; // Prefix for Bot Commands.
 global.Status = `${Prefix}help | Sector Welcome Assistant. ${Version}`; // Status of the Bot.
@@ -22,14 +22,15 @@ global.Records = {
 }
 
 Bot.registry
-    .registerGroup('info', 'Information Commands')
+    .registerGroup('support', 'Support Commands')
 	.registerGroup('roles', 'Rainbow Commands')
-	.registerGroup('data', 'Data Commands')
+	.registerGroup('settings', 'Settings Commands')
+	.registerGroup('music', 'Vibes Commands')
+	//.registerGroup('moderation', "Moderation Commands")
 	.registerDefaults()
     .registerCommandsIn(__dirname + "/commands");
 
 // Getting Rainbow Functions
-
 async function Color() {
     Timeout(Colors, (Color) => {
         Bot.guilds.forEach((guild) => {
@@ -41,6 +42,7 @@ async function Color() {
         })
     }, 1500).then(Color);
 }
+
 // Getting Bot Functions
 
 Bot.on("guildCreate", Guild => {
@@ -85,12 +87,14 @@ Bot.on("guildMemberRemove", Member => {
         leaveChannel.send(LeaveEmbed)
     }
 });
+
 Bot.on("message", Message => {
 	if (Message.author.equals(Bot.user)) return;
 	if (Message.channel.type === "dm") return;
 	if (Message.content.startsWith(Prefix)) return;
 	if (Testing === true) return;
 	
+	// Suggestions Portion
 	if (!Records[Message.guild.id]) return;
 	if (!Records[Message.guild.id].Suggestions) return; 
 	
@@ -130,7 +134,7 @@ Bot.on("message", Message => {
 	}	
 });
 Bot.on("ready", function () {
-    console.log(`${Name}: Lyaboo Bot has loaded and is ready for Usage. Online at ${Bot.guilds.size}`);
+    console.log(`${Name} has loaded and is ready for Usage. Online at ${Bot.guilds.size}`);
     if (Testing === false) {
         Bot.user.setActivity(`${Status}`, {type: "STREAMING"})
     };
@@ -138,8 +142,19 @@ Bot.on("ready", function () {
         Bot.user.setStatus("idle");
         Bot.user.setActivity("Maintenance Mode On, Will Be Back Soon.")
         return;
-    }	
+    }
+	Bot.guilds.forEach((guild) => {
+		if (!Records[guild.id]) {
+			Records[guild.id] = {
+				
+			}	
+		}	
+	})	
     Color();
 });
+
+
+
+
 
 Bot.login(process.env.BOT_TOKEN)
