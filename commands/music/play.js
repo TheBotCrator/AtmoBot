@@ -117,8 +117,8 @@ class PlayCommand extends Commando.Command {
 					let Embed = new Discord.RichEmbed()
 					.setColor("#27037e")
 					.setThumbnail(message.guild.iconURL)
-					.setDescription(`:musical_note:/n${Videos.map(Videos2 => `**${++Count} -** ${Videos2.title}`).join('\n')}`)
-					.setTitle("Song Selection");
+					.setDescription(`{Videos.map(Videos2 => `**${++Count} -** ${Videos2.title}`).join('\n')}`)
+					.setTitle(":musical_note: Song Selection :musical_note:");
 					message.channel.send(`Please provide a value to select one of the search results ranging from 1-10.`, Embed)
 					try {
 						var Response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
