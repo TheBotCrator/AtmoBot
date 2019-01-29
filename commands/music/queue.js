@@ -5,10 +5,10 @@ const YTDL = require("ytdl-core")
 class StopCommand extends Commando.Command {
     constructor(client) {
         super(client, {
-            name: 'stop',
+            name: 'np',
             group: 'music',
-            memberName: "stop",
-            description: 'Will Stop a youtube link playing in a Voice Channel.'
+            memberName: "np",
+            description: 'Will Show the current youtube link playing in a Voice Channel.'
         });
     }
 
@@ -19,12 +19,15 @@ class StopCommand extends Commando.Command {
         if (Testing === true) return;
 
         var Queue = Records[message.guild.id].Music;
-       
-	    if (!message.member.voiceChannel) return message.channel.send(':x: You are not in a voice channel!');
-		if (!Queue) return message.channel.send(':warning: There is nothing playing that I could stop for you.');
-		Queue.Queue = [];
-		Queue.Connection.dispatcher.end('Stop command has been used!');
-		return undefined;
+	    if (!Queue) return message.channel.send(':x: There is nothing playing.');
+		
+		return message.channel.send(`
+__**Song queue:**__
+
+${Queue.Queue.map(song => `**-** ${song.title}`).join('\n')}
+
+**Now playing:** ${Queue.Queue[0].title}
+		`)
     }
 }
 

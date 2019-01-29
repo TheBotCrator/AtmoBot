@@ -1,17 +1,72 @@
 const Commando = require('discord.js-commando')
 const Discord = require('discord.js')
 const YTDL = require("ytdl-core")
+const SimpleAPI = require('simple-youtube-api');
+const Youtube = new SimpleAPI(API)
 
-function Play(connection, message) {
-    var Server = Records[message.guild.id];
-    Server.dispatcher = connection.playStream(YTDL(Server.queue[0], { quality: "highestaudio", filter: "audioonly" }));
-    Server.queue.shift();
-    Server.dispatcher.on("end", function () {
-        if (Server.queue[0]) Play(connection, message);
-        else connection.disconnect();
-    })
+
+async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
+	const Queue = Records[Message.guild.id].Music;
+	console.log(Video);
+	
+	const Song = {
+		id: Video.id,
+		title: Util.escapeMarkdown(Video.title),
+		url: `https://www.youtube.com/watch?v=${Video.id}`
+	};
+	
+	if (!Queue) {
+		Records[Message.guild.id].Music = {
+			Text: Message.channel,
+			Voice: VoiceChannel,
+			Connection: null,
+			Queue: [],
+			Volume: 5,
+			Playing: true
+		}	
+		Records[Message.guild.id].Music.Queue.push(Song);
+
+		try {
+			var Connection = await VoiceChanel.join();
+			Records[Message.guild.id].Music.Connection = Connection;
+			Play(Message.guild, Records[Message.guild.id].Music.Queue[0]);
+		} catch (error) {
+			console.error(`I could not join the voice channel: ${error}`);
+			Records[Message.guild.id].Music.delete(Message.guild.id);
+			return Message.channel.send(`I could not join the voice channel: ${error}`);
+		}
+	} else {
+		Records[Message.guild.id].Music.Queue.push(song);
+		console.log(Records[Message.guild.id].Music.Queue);
+		if (Playlist) return undefined;
+		else return Message.channel.send(`:white_check_mark:**${song.title}** has been added to the queue!`);
+	}
+	return undefined;
 }
-//Fixing
+async function Play(Guild, Song) {
+	const Queue = Records[Guild.id].Music;
+
+	if (!Song) {
+		Queue.Voice.leave();
+		Records[Guild.id].Music.delete();
+		return;
+	}
+	console.log(Queue.Queue);
+
+	const Dispatcher = Queue.Connection.playStream(YTDL(Song.url))
+		.on('end', Reason => {
+			if (Reason === 'Stream is not generating quickly enough.') console.log('Song ended.');
+			else console.log(Reason);
+			Queue.Queue.shift();
+			Play(Guild, Queue.Queue[0]);
+		})
+		.on('error', Error => console.error(Error));
+	Dispatcher.setVolumeLogarithmic(Queue.Volume / 5);
+
+	Queue.Text.send(`:white_check_mark: Start playing: **${Song.title}**`);
+}
+
+
 
 class PlayCommand extends Commando.Command {
     constructor(client) {
@@ -29,34 +84,61 @@ class PlayCommand extends Commando.Command {
         if (message.channel.type === "dm") return;
         if (Testing === true) return;
 
-        if (!Args[1]) {
-            message.channel.send("Please specify a link");
-            return
-        }
-
-        let Validation = YTDL.validateURL(Args[1])
-        if (!Validation) return message.channel.send(":warning: Song URL Invalid, please check again.")
-	
-        if (!message.member.voiceChannel) {
-            message.channel.send("I think it may work better if you are in a voice channel!");
-        }
-
-        if (!Records[message.guild.id]) {
-			Records[message.guild.id] = {
-				
-            }
-        }
-		if (!Records[message.guild.id].queue) {
-			Records[message.guild.id].queue = [ ]
-		}	
+        const VoiceChannel = message.member.voiceChannel;
+		if (!VoiceChannel) return message.channel.send(":warning: I'm sorry but you need to be in a voice channel to play music!");
 		
-        var Server = Records[message.guild.id];
+		const permissions = VoiceChannel.permissionsFor(message.client.user);
+		if (!permissions.has('CONNECT')) {
+			return message.channel.send(':warning: I cannot connect to your voice channel, make sure I have the proper permissions!');
+		}
+		if (!permissions.has('SPEAK')) {
+			return message.channel.send(':warning: I cannot speak in this voice channel, make sure I have the proper permissions!');
+		}
+		
+		const SearchString = args.slice(1).join(' ');
+		const URL = args[1] ? args[1].replace(/<(.+)>/g, '$1') : '';
 
-        Server.queue.push(Args[1]);
-        message.channel.send("Your song of choice is on the queue. ")
-        if (!message.member.voiceConnection) message.member.voiceChannel.join().then(function (connection) {
-            Play(connection, message);
-        })
+		if (URL.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
+			const Playlist = await Youtube.getPlaylist(URL);
+			const Videos = await Playlist.getVideos();
+			for (const Video of Object.values(Videos)) {
+				const Video2 = await Youtube.getVideoByID(Video.id);
+				await HandleVideo(Video2, message, VoiceChannel, true);
+			}
+			return message.channel.send(`Playlist: **${playlist.title}** has been added to the queue!`);
+		} else {
+			try {
+				var Video = await Youtube.getVideo(url);
+			} catch (error) {
+				try {
+					var Videos = await Youtube.searchVideos(searchString, 10);
+					let Count = 0;
+					message.channel.send(`
+__**Song selection:**__
+
+${Videos.map(Videos2 => `**${++Count} -** ${Videos2.title}`).join('\n')}
+
+Please provide a value to select one of the search results ranging from 1-10.
+					`);
+
+					try {
+						var Response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
+							maxMatches: 1,
+							time: 10000,
+							errors: ['time']
+						});
+					} catch (err) {
+						console.error(err);
+						return message.channel.send(':x: No or invalid value entered, cancelling video selection.');
+					}
+					const Index = parseInt(Response.first().content);
+					var Video = await Youtube.getVideoByID(Videos[Index - 1].id);
+				} catch (err) {
+					console.error(err);
+					return message.channel.send(':x: I could not obtain any search results.');
+				}
+			}
+			return HandleVideo(Video, message, VoiceChannel);
     }
 }
 
