@@ -22,8 +22,8 @@ class StopCommand extends Commando.Command {
 	    if (!Queue) return message.channel.send(':x: There is nothing playing.');
 		
 	    let Embed = new Discord.RichEmbed()
-	    .setTitle("Song Queue")
-	    .setDecription(`:musical_note:\n${Queue.Queue.map(song => `**-** ${song.title}`).join('\n')}`)
+	    .setTitle(":musical_note: Song Queue :musical_note:")
+	    .setDecription(`${Queue.Queue.map(song => `**-** ${song.title}`).join('\n')}`)
 	    .addField("Now Playing", `${Queue.Queue[0].title}`)
 	    return message.channel.send("Current Songs Playing Now on Lyaboo", Embed)
     }
