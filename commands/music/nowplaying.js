@@ -2,7 +2,7 @@ const Commando = require('discord.js-commando')
 const Discord = require('discord.js')
 const YTDL = require("ytdl-core")
 
-class StopCommand extends Commando.Command {
+class NPCommand extends Commando.Command {
     constructor(client) {
         super(client, {
             name: 'np',
@@ -23,11 +23,11 @@ class StopCommand extends Commando.Command {
 	if (!Queue) return message.channel.send('There is nothing playing.');
 	    let Embed = new Discord.RichEmbed()
 	    .setTitle(":musical_note: Current Song :musical_note:")
-	    .setColor()
+	    .setColor("#27037e")
 	    .addField("Now Playing", `${Queue.Queue[0].title}`)
 	    .addField("Requested By", `${Queue.Queue[0].requester}`);
 	return message.channel.send(Embed);
     }
 }
 
-module.exports = StopCommand
+module.exports = NPCommand
