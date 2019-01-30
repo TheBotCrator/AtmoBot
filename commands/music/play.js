@@ -5,7 +5,7 @@ const YTDL = require("ytdl-core")
 const SimpleAPI = require('simple-youtube-api')
 const Search = require("yt-search")
 
-const Youtube = new SimpleAPI(API)
+const Youtube = new SimpleAPI(API2)
 
 async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 	const Queue = Records[Message.guild.id].Music;
