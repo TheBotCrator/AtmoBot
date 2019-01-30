@@ -113,7 +113,7 @@ class PlayCommand extends Commando.Command {
 			const Playlist = await Youtube.getPlaylist(URL);
 			const Videos = await Playlist.getVideos();
 			for (const Video of Object.values(Videos)) {
-				const Video2 = await YTDL.getInfo(Video.id);
+				const Video2 = await YTDL.getInfo(Video);
 				await HandleVideo(Video2, message, VoiceChannel, true);
 			}
 			return message.channel.send(`Playlist: **${Playlist.title}** has been added to the queue!`);
@@ -138,7 +138,7 @@ class PlayCommand extends Commando.Command {
 							return message.channel.send(':x: No or invalid value entered, canceLling video selection.');
 						}
 						const Index = parseInt(Response.first().content);
-						var Video = await YTDL.getInfo(Videos[Index - 1].id);
+						var Video = await YTDL.getInfo(Videos[Index - 1]);
 					})
 	
 				} catch(err) {
