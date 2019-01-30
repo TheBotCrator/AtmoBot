@@ -121,7 +121,7 @@ class PlayCommand extends Commando.Command {
 			console.log(URL) 
 			console.log(ID)
 			Info(ID, function(Err, Results) {
-				if (Error) throw new Error(Err);
+				if (Err) throw new Error(Err);
 				return HandleVideo(Results, message, VoiceChannel)
 			})
 			
@@ -143,7 +143,7 @@ class PlayCommand extends Commando.Command {
 				}
 				const Index = parseInt(Response.first().content);
 				Info(Videos[Index - 1].videoId, function(Err, Results){
-					if (Error) throw new Error(Err);
+					if (Err) throw new Error(Err);
 					return HandleVideo(Results, message, VoiceChannel)
 				});
 			})
