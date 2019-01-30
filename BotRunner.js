@@ -16,6 +16,8 @@ global.Stop = [ ]
 // Getting Tokens
 global.Login = process.env.BOT_TOKEN
 global.API = process.env.YOUTUBE_TOKEN
+global.API2 = process.env.YOUTUBE_TOKEN2
+
 
 // Getting Bot Server Information
 global.Bot = new Commando.Client({
