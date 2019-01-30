@@ -1,20 +1,20 @@
 const Commando = require('discord.js-commando')
 const Discord = require('discord.js')
 const { Util } = require('discord.js')
-const YTDL = require("ytdl-core")
-const SimpleAPI = require('simple-youtube-api')
-const Search = require("yt-search")
 
-const Youtube = new SimpleAPI(API2)
+const YTDL = require("ytdl-core")
+const Search = require("yt-search")
+const Info = require("youtube-info")
 
 async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 	const Queue = Records[Message.guild.id].Music;
 	console.log(Video);
 	
 	const Song = {
-		id: Video.id,
+		thumbnail: Video.thumbnailUrl,
+		id: Video.videoId,
 		title: Util.escapeMarkdown(Video.title),
-		url: `https://www.youtube.com/watch?v=${Video.id}`,
+		url: `https://www.youtube.com/watch?v=${Video.videoId}`,
 		requester: Message.author
 	};
 	
@@ -42,9 +42,9 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 		let Embed = new Discord.RichEmbed()
 		.setColor("#27037e")
 		.setTitle("Lyaboo Music")
-		.setThumbnail(`${Video.thumbnails.default.url}`)
+		.setThumbnail(`${Song.thumbnail}`)
 		.addField("Song Name", `${Song.title}`, true)
-		.addField("Song Link", `${Video.url}`, true)
+		.addField("Song Link", `${Song.url}`, true)
 		.addField("Song Requester", `${Song.requester}`, true);
 		
 		Records[Message.guild.id].Music.Queue.push(Song);
@@ -73,10 +73,17 @@ async function Play(Guild, Song) {
 		})
 		.on('error', Error => console.error(Error));
 	Dispatcher.setVolumeLogarithmic(Queue.Volume / 5);
-
+	
+	let Embed = new Discord.RichEmbed()
+		.setColor("#27037e")
+		.setTitle("Lyaboo Music")
+		.setThumbnail(`${Song.thumbnail}`)
+		.addField("Song Name", `${Song.title}`, true)
+		.addField("Song Link", `${Song.url}`, true)
+		.addField("Song Requester", `${Song.requester}`, true);
+		
 	Queue.Text.send(`:musical_note: Now playing: **${Song.title}** Requested by: **${Song.requester}**`);
 }
-
 
 
 class PlayCommand extends Commando.Command {
@@ -109,47 +116,36 @@ class PlayCommand extends Commando.Command {
 		const SearchString = Args.slice(1).join(' ');
 		const URL = Args[1] ? Args[1].replace(/<(.+)>/g, '$1') : '';
 
-		if (URL.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-			const Playlist = await Youtube.getPlaylist(URL);
-			const Videos = await Playlist.getVideos();
-			for (const Video of Object.values(Videos)) {
-				const Video2 = await Youtube.getVideoByID(Video.id);
-				await HandleVideo(Video2, message, VoiceChannel, true);
-			}
-			return message.channel.send(`Playlist: **${Playlist.title}** has been added to the queue!`);
+		if (YTDL.validateURL(URL)) {
+			Info(URL, function(Err, Results) {
+				if (Error) throw new Error(Err);
+				return HandleVideo(Results, message, VoiceChannel)
+			})
+			
 		} else {
-			try {
-				var Video = await Youtube.getVideo(URL);
-			} catch (error) {
+			Search(SearchString, function(Error, Results) {
+				let Count = 0
+				let Videos = Results.videos.slice(0, 10)
+				let Embed = new Discord.RichEmbed()
+				.setColor("#27037e")
+				.setThumbnail(message.guild.iconURL)
+				.setDescription(`${Videos.map(Videos2 => `**${++Count} -** ${Videos2.title}`).join('\n')}`)
+				.setTitle(":musical_note: Song Selection :musical_note:");
+				message.channel.send(`Please provide a value to select one of the search results ranging from 1-10.`, Embed)
 				try {
-					var Videos = await Youtube.searchVideos(SearchString, 10);
-					let Count = 0;
-					let Embed = new Discord.RichEmbed()
-					.setColor("#27037e")
-					.setThumbnail(message.guild.iconURL)
-					.setDescription(`${Videos.map(Videos2 => `**${++Count} -** ${Videos2.title}`).join('\n')}`)
-					.setTitle(":musical_note: Song Selection :musical_note:");
-					message.channel.send(`Please provide a value to select one of the search results ranging from 1-10.`, Embed)
-					try {
-						var Response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
-							maxMatches: 1,
-							time: 10000,
-							errors: ['time']
-						});
-					} catch (err) {
-						console.error(err);
-						return message.channel.send(':x: No or invalid value entered, canceLling video selection.');
-					}
-					const Index = parseInt(Response.first().content);
-					var Video = await Youtube.getVideoByID(Videos[Index - 1].id);
+					var Response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, { maxMatches: 1, time: 10000, errors: ['time'] });
 				} catch (err) {
 					console.error(err);
-					return message.channel.send(':x: I could not obtain any search results.');
+					return message.channel.send(':x: No or invalid value entered, cancelling video selection.');
 				}
-			}
-			return HandleVideo(Video, message, VoiceChannel);
+				const Index = parseInt(Response.first().content);
+				Info(Videos[Index - 1].videoId, function(Err, Results){
+					if (Error) throw new Error(Err);
+					return HandleVideo(Results, message, VoiceChannel)
+				});
+			})
+		}	
 	}
-    }
 }
 
 module.exports = PlayCommand
