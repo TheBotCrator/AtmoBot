@@ -2,9 +2,8 @@ const Commando = require('discord.js-commando')
 const Discord = require('discord.js')
 const { Util } = require('discord.js')
 const YTDL = require("ytdl-core")
-const SimpleAPI = require('simple-youtube-api');
-const Youtube = new SimpleAPI(API)
-
+const YSearch = require('yt-search');
+const Youtube = require('simple-youtube-api')
 
 async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 	const Queue = Records[Message.guild.id].Music;
@@ -117,36 +116,37 @@ class PlayCommand extends Commando.Command {
 			}
 			return message.channel.send(`Playlist: **${Playlist.title}** has been added to the queue!`);
 		} else {
+		  try {
+			var Video = await YTDL.getInfo(URL);
+		   } catch (error) {
 			try {
-				var Video = await Youtube.getVideo(url);
-			} catch (error) {
-				try {
-					var Videos = await Youtube.searchVideos(SearchString, 10);
+				Youtube(SearchString, function(Error, Videos) => {
 					let Count = 0;
+					let Results = Videos.videos.slice(0, 10)
 					let Embed = new Discord.RichEmbed()
 					.setColor("#27037e")
 					.setThumbnail(message.guild.iconURL)
-					.setDescription(`${Videos.map(Videos2 => `**${++Count} -** ${Videos2.title}`).join('\n')}`)
+					.setDescription(`${Results.map(Videos2 => `**${++Count} -** ${Videos2.title}`).join('\n')}`)
 					.setTitle(":musical_note: Song Selection :musical_note:");
-					message.channel.send(`Please provide a value to select one of the search results ranging from 1-10.`, Embed)
+					message.channel.send(`Please provide a value to select one of the search results ranging from 1-10.`, Embed)		  
+	
 					try {
-						var Response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
-							maxMatches: 1,
-							time: 10000,
-							errors: ['time']
-						});
+						var Response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, { maxMatches: 1, time: 10000, errors: ['time'] });
 					} catch (err) {
 						console.error(err);
 						return message.channel.send(':x: No or invalid value entered, canceLling video selection.');
 					}
+				
 					const Index = parseInt(Response.first().content);
-					var Video = await Youtube.getVideoByID(Videos[Index - 1].id);
-				} catch (err) {
-					console.error(err);
-					return message.channel.send(':x: I could not obtain any search results.');
-				}
-			}
-			return HandleVideo(Video, message, VoiceChannel);
+					var Video = await YTDL.getInfo(Results[Index - 1]);
+				});
+				
+			} 
+		} catch (err) {
+			console.error(err);
+			return message.channel.send(':x: I could not obtain any search results.');
+		}
+	return HandleVideo(Video, message, VoiceChannel);
 	}
     }
 }
