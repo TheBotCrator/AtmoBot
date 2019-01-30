@@ -140,7 +140,7 @@ class PlayCommand extends Commando.Command {
 				}
 			}
 			return HandleVideo(Video, message, VoiceChannel);
-		}
+		
     }
 }
 
