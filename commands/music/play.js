@@ -122,7 +122,7 @@ class PlayCommand extends Commando.Command {
 				var Video = await YTDL.getInfo(URL);
 			} catch (error) {
 				try {
-					Search(SearchString, function(Error, Results) => {
+					Search(SearchString, function(Error, Results) {
 						let Count = 0
 						let Videos = Results.videos.slice(0, 10)
 						let Embed = new Discord.RichEmbed()
