@@ -109,17 +109,8 @@ class PlayCommand extends Commando.Command {
 		const SearchString = Args.slice(1).join(' ');
 		const URL = Args[1] ? Args[1].replace(/<(.+)>/g, '$1') : '';
 
-		if (URL.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-			const Playlist = await Youtube.getPlaylist(URL);
-			const Videos = await Playlist.getVideos();
-			for (const Video of Object.values(Videos)) {
-				const Video2 = await YTDL.getInfo(Video);
-				await HandleVideo(Video2, message, VoiceChannel, true);
-			}
-			return message.channel.send(`Playlist: **${Playlist.title}** has been added to the queue!`);
-		} else {
-			try {
-				var Video = await YTDL.getInfo(URL);
+		try {
+			var Video = await YTDL.getInfo(URL);
 			} catch (error) {
 				try {
 					Search(SearchString, async function(Error, Results) { 
