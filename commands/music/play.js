@@ -124,7 +124,8 @@ class PlayCommand extends Commando.Command {
 				try {
 					Search(SearchString, async function(Error, Results) {
 						let Count = 0
-						let Videos = Results.videos.slice(0, 10)
+						let Videos = Results.videos.slice(0, 10) 
+						console.log(Videos)
 						let Embed = new Discord.RichEmbed()
 						.setColor("#27037e")
 						.setThumbnail(message.guild.iconURL)
@@ -139,7 +140,6 @@ class PlayCommand extends Commando.Command {
 						}
 						const Index = parseInt(Response.first().content);
 						var Video = await YTDL.getInfo(Videos[Index - 1]); 
-						console.log(Video)
 					})
 	
 				} catch(err) {
