@@ -117,7 +117,8 @@ class PlayCommand extends Commando.Command {
 		const URL = Args[1] ? Args[1].replace(/<(.+)>/g, '$1') : '';
 
 		if (YTDL.validateURL(URL)) {
-			Info(URL, function(Err, Results) {
+			var ID = YTDL.getURLVideoID(URL)
+			Info(ID, function(Err, Results) {
 				if (Error) throw new Error(Err);
 				return HandleVideo(Results, message, VoiceChannel)
 			})
