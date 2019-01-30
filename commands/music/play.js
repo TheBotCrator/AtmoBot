@@ -12,9 +12,9 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 	console.log(Video);
 	
 	const Song = {
-		id: Video.id,
+		id: Video.videoId,
 		title: Util.escapeMarkdown(Video.title),
-		url: `https://www.youtube.com/watch?v=${Video.id}`,
+		url: `https://www.youtube.com/watch?v=${Video.videoId}`,
 		requester: Message.author
 	};
 	
@@ -122,7 +122,8 @@ class PlayCommand extends Commando.Command {
 				var Video = await YTDL.getInfo(URL);
 			} catch (error) {
 				try {
-					Search(SearchString, async function(Error, Results) {
+					Search(SearchString, async function(Error, Results) { 
+						if (Error) return console.log(Error)
 						let Count = 0
 						let Videos = Results.videos.slice(0, 10) 
 						console.log(Videos)
