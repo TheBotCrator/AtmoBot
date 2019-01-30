@@ -123,7 +123,7 @@ class PlayCommand extends Commando.Command {
 			})
 			
 		} else {
-			Search(SearchString, function(Error, Results) {
+			Search(SearchString, async function(Error, Results) {
 				let Count = 0
 				let Videos = Results.videos.slice(0, 10)
 				let Embed = new Discord.RichEmbed()
