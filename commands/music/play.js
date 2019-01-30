@@ -2,9 +2,10 @@ const Commando = require('discord.js-commando')
 const Discord = require('discord.js')
 const { Util } = require('discord.js')
 const YTDL = require("ytdl-core")
-const SimpleAPI = require('simple-youtube-api');
-const Youtube = new SimpleAPI(API)
+const SimpleAPI = require('simple-youtube-api')
+const Search = require("yt-search")
 
+const Youtube = new SimpleAPI(API)
 
 async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 	const Queue = Records[Message.guild.id].Music;
@@ -112,42 +113,41 @@ class PlayCommand extends Commando.Command {
 			const Playlist = await Youtube.getPlaylist(URL);
 			const Videos = await Playlist.getVideos();
 			for (const Video of Object.values(Videos)) {
-				const Video2 = await Youtube.getVideoByID(Video.id);
+				const Video2 = await YTDL.getInfo(Video.id);
 				await HandleVideo(Video2, message, VoiceChannel, true);
 			}
 			return message.channel.send(`Playlist: **${Playlist.title}** has been added to the queue!`);
 		} else {
 			try {
-				var Video = await Youtube.getVideo(URL);
+				var Video = await YTDL.getInfo(URL);
 			} catch (error) {
 				try {
-					var Videos = await Youtube.searchVideos(SearchString, 10);
-					let Count = 0;
-					let Embed = new Discord.RichEmbed()
-					.setColor("#27037e")
-					.setThumbnail(message.guild.iconURL)
-					.setDescription(`${Videos.map(Videos2 => `**${++Count} -** ${Videos2.title}`).join('\n')}`)
-					.setTitle(":musical_note: Song Selection :musical_note:");
-					message.channel.send(`Please provide a value to select one of the search results ranging from 1-10.`, Embed)
-					try {
-						var Response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
-							maxMatches: 1,
-							time: 10000,
-							errors: ['time']
-						});
-					} catch (err) {
-						console.error(err);
-						return message.channel.send(':x: No or invalid value entered, canceLling video selection.');
-					}
-					const Index = parseInt(Response.first().content);
-					var Video = await Youtube.getVideoByID(Videos[Index - 1].id);
-				} catch (err) {
+					Search(SearchString, function(Error, Results) => {
+						let Count = 0
+						let Videos = Results.videos.slice(0, 10)
+						let Embed = new Discord.RichEmbed()
+						.setColor("#27037e")
+						.setThumbnail(message.guild.iconURL)
+						.setDescription(`${Videos.map(Videos2 => `**${++Count} -** ${Videos2.title}`).join('\n')}`)
+						.setTitle(":musical_note: Song Selection :musical_note:");
+						message.channel.send(`Please provide a value to select one of the search results ranging from 1-10.`, Embed)
+						try {
+							var Response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, { maxMatches: 1, time: 10000, errors: ['time'] });
+						} catch (err) {
+							console.error(err);
+							return message.channel.send(':x: No or invalid value entered, canceLling video selection.');
+						}
+						const Index = parseInt(Response.first().content);
+						var Video = await YTDL.getInfo(Videos[Index - 1].id);
+					})
+	
+				} catch(err) {
 					console.error(err);
 					return message.channel.send(':x: I could not obtain any search results.');
 				}
 			}
 			return HandleVideo(Video, message, VoiceChannel);
-	}
+		}
     }
 }
 
