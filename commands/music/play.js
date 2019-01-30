@@ -118,7 +118,7 @@ class PlayCommand extends Commando.Command {
 			return message.channel.send(`Playlist: **${Playlist.title}** has been added to the queue!`);
 		} else {
 			try {
-				var Video = await Youtube.getVideo(url);
+				var Video = await Youtube.getVideo(URL);
 			} catch (error) {
 				try {
 					var Videos = await Youtube.searchVideos(SearchString, 10);
