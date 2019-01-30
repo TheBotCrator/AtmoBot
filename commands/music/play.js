@@ -138,7 +138,8 @@ class PlayCommand extends Commando.Command {
 							return message.channel.send(':x: No or invalid value entered, canceLling video selection.');
 						}
 						const Index = parseInt(Response.first().content);
-						var Video = await YTDL.getInfo(Videos[Index - 1]);
+						var Video = await YTDL.getInfo(Videos[Index - 1]); 
+						console.log(Video)
 					})
 	
 				} catch(err) {
