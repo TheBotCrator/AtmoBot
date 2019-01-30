@@ -132,7 +132,7 @@ class PlayCommand extends Commando.Command {
 						}
 						const Index = parseInt(Response.first().content);
 						var Video = await YTDL.getInfo(Videos[Index - 1]); 
-					})
+					} catch(Error){ return console.log(Error) })
 	
 				} catch(err) {
 					console.error(err);
