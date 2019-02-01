@@ -4,7 +4,8 @@ global.Depends = {
     Discord: require('discord.js'), // Library for Hosting Bot.
     Commando: require('discord.js-commando'), // Library Extension for Hosting Bot.
     Timeout: require('foreach-timeout'), // Used for Rainbow Roles.
-
+	Haste: require("hastebin-gen"), // Used for Maintaining Data exceed overing Character Limits.
+	
     // Youtube and Music Dependencies
     YTDL: require('ytdl-core'), // To Host Music for Youtube.
     Search: require('yt-search'), // To Search in Various of Numbers on Youtube.
@@ -26,7 +27,8 @@ global.Settings = {
     },
     DevKeys: {
         Login: process.env.BOT_TOKEN, // Used for Accessing the Bot.
-        Youtube: process.env.YOUTUBE_TOKEN // Used for Getting Youtube API stuff.
+        Youtube: process.env.YOUTUBE_TOKEN, // Used for Getting Youtube API stuff.
+		// Soundcloud: process.env.SOUNDCLOUD_TOKEN // Used for Getting Soundloud API stuff.
     },
     Bot: ""
 }
@@ -40,6 +42,7 @@ global.Stop = [ ]
 // Getting Bot Registry
 Settings.Bot = new Depends.Commando.Client({ commandPrefix: Settings.Prefix })
 Settings.Status = `${Settings.Prefix}help | Sector Welcome Assistant. ${Settings.Version}`
+
 Settings.Bot.registry
     .registerGroup('support', 'Support Commands')
 	.registerGroup('roles', 'Rainbow Commands')
@@ -47,7 +50,6 @@ Settings.Bot.registry
 	.registerGroup('music', 'Vibes Commands')
 	//.registerGroup('moderation', "Moderation Commands")
     .registerGroup('utilitizes', 'Developer Commands')
-.registerDefaults()
     .registerCommandsIn(__dirname + "/commands");
 
 // Getting Rainbow Functions
