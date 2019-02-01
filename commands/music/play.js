@@ -10,7 +10,6 @@ const Playlist = Depends.Playlist
 
 async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 	const Queue = Records[Message.guild.id].Music;
-	console.log(Video);
 	
 	const Song = {
 		thumbnail: Video.thumbnailUrl,
