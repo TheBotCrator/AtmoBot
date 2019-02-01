@@ -21,7 +21,7 @@ class UpdateCommand extends Commando.Command {
         Args.splice(0, 1)
         let NewStatus = Args.join(" ")
 
-        let Author = Number(Message.author.id)
+        let Author = Number(message.author.id)
         if (Author == Number(DevServer.Developer)) {
             Settings.Status = NewStatus
             if (Settings.Testing === false) {

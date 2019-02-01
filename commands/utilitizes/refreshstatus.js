@@ -17,7 +17,7 @@ class RefreshCommand extends Commando.Command {
         if (message.channel.type === "dm") return;
         if (Settings.Testing === true) return;
 
-        let Author = Number(Message.author.id)
+        let Author = Number(message.author.id)
         if (Author == Number(DevServer.Developer)) {
             if (Settings.Testing === false) {
                 return Settings.Bot.user.setActivity(`${Settings.Status}`, { type: "STREAMING" })

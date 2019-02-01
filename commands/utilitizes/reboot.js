@@ -17,7 +17,7 @@ class RebootCommand extends Commando.Command {
         if (message.channel.type === "dm") return;
         if (Settings.Testing === true) return;
 
-        let Author = Number(Message.author.id)
+        let Author = Number(message.author.id)
         if (Author == Number(DevServer.Developer)) {
             message.channel.send(":warning: Resetting Bot...").then(Mes => Mes.delete(2000))
             Settings.Bot.destroy()
