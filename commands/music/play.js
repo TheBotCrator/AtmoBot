@@ -48,7 +48,6 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 		.addField("Song Requester", `${Song.requester}`, true);
 		
 		Records[Message.guild.id].Music.Queue.push(Song);
-		console.log(Records[Message.guild.id].Music.Queue);
 		if (Playlist) return undefined;
 			else return Message.channel.send(`:musical_note: A song has been added to the queue!`, Embed);
 	}
@@ -61,8 +60,7 @@ async function Play(Guild, Song) {
 		Queue.Voice.leave(); 
 		delete Records[Guild.id].Music;
 		return;
-	}
-	console.log(Queue.Queue);
+	};
 
 	const Dispatcher = Queue.Connection.playStream(YTDL(Song.url, { filter: "audio", highWaterMark: 1024 * 1024 * 10 }, { passes: 5 }), { bitrate: 192000 })
 		.on('end', Reason => {
