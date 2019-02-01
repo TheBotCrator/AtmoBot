@@ -1,6 +1,6 @@
 const Commando = Depends.Commando
 const Discord = Depends.Discord
-
+const Haste = Depends.Haste
 
 class QueueCommand extends Commando.Command {
     constructor(client) {
@@ -21,11 +21,25 @@ class QueueCommand extends Commando.Command {
         var Queue = Records[message.guild.id].Music;
 	    if (!Queue) return message.channel.send(':x: There is nothing playing.');
 	    let Count = 0	
-	    let Embed = new Discord.RichEmbed()
-	    .setColor("#27037e")
-	    .setTitle(":musical_note: Song Queue :musical_note:")
-	    .setDescription(`${Queue.Queue.map(song => `${++Count}. ${song.title}`).join('\n')}`);
-	    return message.channel.send("Current Songs Playing Now on Lyaboo", Embed)
+		
+		let Queue = `${Queue.Queue.map(song => `${++Count}. ${song.title}`).join('\n')}`
+		let Count = Queue.length
+	
+		if (Count >= 2048) {
+			Haste(`${Queue}`, "js").then(Results => {
+				let Embed = new Discord.RichEmbed()
+				.setColor("#27037e")
+				.setTitle(":musical_note: Song Queue :musical_note:")
+				.setDescription(`${Results}`);
+				return message.channel.send("Current Songs Playing Now on Lyaboo", Embed)
+			})
+		} else {
+			let Embed = new Discord.RichEmbed()
+			.setColor("#27037e")
+			.setTitle(":musical_note: Song Queue :musical_note:")
+			.setDescription(`${Queue}`);
+			return message.channel.send("Current Songs Playing Now on Lyaboo", Embed)	
+		}	
     }
 }
 
