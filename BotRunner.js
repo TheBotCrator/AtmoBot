@@ -107,7 +107,7 @@ Settings.Bot.on("guildMemberRemove", Member => {
 });
 
 Settings.Bot.on("message", Message => {
-	if (Message.author.equals(Bot.user)) return;
+	if (Message.author.equals(Settings.Bot.user)) return;
 	if (Message.channel.type === "dm") return;
 	if (Message.content.startsWith(Prefix)) return;
 	if (Settings.Testing === true) return;
