@@ -31,7 +31,7 @@ class UpdateCommand extends Commando.Command {
                 .setColor("6e00ff")
                 .setDescription(`Successfully updated status to: ${NewStatus}`);
 
-            return Channel.send(`<@${DevServer.Developer}>`, Embed)
+            return message.channel.send(`<@${DevServer.Developer}>`, Embed)
         } else {
             let Embed = new Discord.RichEmbed()
                 .setColor("276e00ff")
