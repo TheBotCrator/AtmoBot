@@ -28,7 +28,7 @@ global.Settings = {
         Login: process.env.BOT_TOKEN, // Used for Accessing the Bot.
         Youtube: process.env.YOUTUBE_TOKEN // Used for Getting Youtube API stuff.
     },
-    Bot: new Depends.Command.Client({ commandPrefix: Settings.Prefix })
+    Bot: ""
 }
 global.Records = { // Used for Storing Temporary Information.
 
@@ -38,6 +38,7 @@ global.Colors = ["FF0D00", "FF2800", "FF3D00", "FF4F00", "FF5F00", "FF6C00", "FF
 global.Stop = [ ]
 
 // Getting Bot Registry
+Settings.Bot = new Depends.Commando.Client({ commandPrefix: Settings.Prefix })
 Settings.Status = `${Settings.Prefix}help | Sector Welcome Assistant. ${Settings.Version}`
 Settings.Bot.registry
     .registerGroup('support', 'Support Commands')
