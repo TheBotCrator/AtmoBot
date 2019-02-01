@@ -47,6 +47,7 @@ Settings.Bot.registry
 	.registerGroup('music', 'Vibes Commands')
 	//.registerGroup('moderation', "Moderation Commands")
     .registerGroup('utilitizes', 'Developer Commands')
+.registerDefaults()
     .registerCommandsIn(__dirname + "/commands");
 
 // Getting Rainbow Functions
@@ -109,7 +110,7 @@ Settings.Bot.on("guildMemberRemove", Member => {
 Settings.Bot.on("message", Message => {
 	if (Message.author.equals(Settings.Bot.user)) return;
 	if (Message.channel.type === "dm") return;
-	if (Message.content.startsWith(Prefix)) return;
+	if (Message.content.startsWith(Settings.Prefix)) return;
 	if (Settings.Testing === true) return;
 	
 	// Suggestions Portion
