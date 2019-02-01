@@ -1,5 +1,5 @@
-const Commando = require('discord.js-commando')
-const Discord = require('discord.js')
+const Commando = Depends.Commando
+const Discord = Depends.Discord
 
 class RStopCommand extends Commando.Command { 
 	constructor(client){
@@ -12,9 +12,9 @@ class RStopCommand extends Commando.Command {
 	}	
 	
 	async run(message, args){
-        if (message.author.equals(Bot.user)) return;
+        if (message.author.equals(Settings.Bot.user)) return;
 		if (message.channel.type === "dm") return;
-		if (Testing === true) return;
+		if (Settings.Testing === true) return;
 		
 		if (message.member.hasPermission('ADMINISTRATOR')) {
 			Stop.push(message.guild.id);
