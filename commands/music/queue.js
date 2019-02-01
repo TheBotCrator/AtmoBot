@@ -1,6 +1,6 @@
 const Commando = Depends.Commando
 const Discord = Depends.Discord
-const Haste = Depends.Haste
+const Pastee = new Depends.Pastee()
 
 class QueueCommand extends Commando.Command {
     constructor(client) {
@@ -26,11 +26,12 @@ class QueueCommand extends Commando.Command {
 		let ListCount = List.length
 	
 		if (ListCount >= 2048) {
-			Haste.post(List).then(Results => {
+			Pastee.submit(List, function(Error, Results) {
+				if (Error) return message.channel.send(":x: Couldn't retrieve Queue Link because of characters exceeding 2048 characters.")
 				let Embed = new Discord.RichEmbed()
 				.setColor("#27037e")
 				.setTitle(":musical_note: Song Queue :musical_note:")
-				.setDescription(`${Results}`);
+				.setDescription(`${Results.link}`);
 				return message.channel.send("Current Songs Playing Now on Lyaboo", Embed)
 			})
 		} else {
