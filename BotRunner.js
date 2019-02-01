@@ -4,7 +4,7 @@ global.Depends = {
     Discord: require('discord.js'), // Library for Hosting Bot.
     Commando: require('discord.js-commando'), // Library Extension for Hosting Bot.
     Timeout: require('foreach-timeout'), // Used for Rainbow Roles.
-	Haste: require("hastebin-post"), // Used for Maintaining Data exceed overing Character Limits.
+	Pastee: require("pastee"), // Used for Maintaining Data exceed overing Character Limits.
 	
     // Youtube and Music Dependencies
     YTDL: require('ytdl-core'), // To Host Music for Youtube.
