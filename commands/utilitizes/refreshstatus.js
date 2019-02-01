@@ -20,12 +20,9 @@ class RefreshCommand extends Commando.Command {
         let Author = Number(message.author.id)
         if (Author == Number(DevServer.Developer)) {
             if (Settings.Testing === false) {
-                return Settings.Bot.user.setActivity(`${Settings.Status}`, { type: "STREAMING" })
+                Settings.Bot.user.setActivity(`${Settings.Status}`, { type: "STREAMING" })
+				return
             };
-            if (Settings.Testing === true) {
-                Settings.Bot.user.setStatus("idle");
-                return Settings.Bot.user.setActivity("Maintenance Mode On, Will Be Back Soon.")
-            }
         } else {
             let Embed = new Discord.RichEmbed()
                 .setColor("276e00ff")
