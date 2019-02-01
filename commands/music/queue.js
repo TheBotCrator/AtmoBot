@@ -22,11 +22,11 @@ class QueueCommand extends Commando.Command {
 	    if (!Queue) return message.channel.send(':x: There is nothing playing.');
 	    let Count = 0	
 		
-		let Queue = `${Queue.Queue.map(song => `${++Count}. ${song.title}`).join('\n')}`
-		let Count = Queue.length
+		let List = `${Queue.Queue.map(song => `${++Count}. ${song.title}`).join('\n')}`
+		let ListCount = List.length
 	
-		if (Count >= 2048) {
-			Haste(Queue, "js").then(Results => {
+		if (ListCount >= 2048) {
+			Haste(List, "js").then(Results => {
 				let Embed = new Discord.RichEmbed()
 				.setColor("#27037e")
 				.setTitle(":musical_note: Song Queue :musical_note:")
@@ -37,7 +37,7 @@ class QueueCommand extends Commando.Command {
 			let Embed = new Discord.RichEmbed()
 			.setColor("#27037e")
 			.setTitle(":musical_note: Song Queue :musical_note:")
-			.setDescription(`${Queue}`);
+			.setDescription(`${List}`);
 			return message.channel.send("Current Songs Playing Now on Lyaboo", Embed)	
 		}	
     }
