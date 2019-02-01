@@ -1,6 +1,7 @@
 const Commando = Depends.Commando
 const Discord = Depends.Discord
 const DevServer = Settings.DevServer
+const DevKeys = Settings.DevKeys
 
 class RebootCommand extends Commando.Command {
     constructor(client) {
@@ -19,10 +20,10 @@ class RebootCommand extends Commando.Command {
 
         let Author = Number(message.author.id)
         if (Author == Number(DevServer.Developer)) {
-            message.channel.send(":warning: Resetting Bot...").then(Mes => Mes.delete(2000))
-            Settings.Bot.destroy()
-            Bot.login(Settings.DevKeys.Login)
-            return
+            message.channel.send(":warning: Resetting Bot...")
+			.then(Mes => Mes.delete(2000))
+			.then(() => Settings.Bot.destroy())
+            .then(() => Bot.login(DevKeys.Login))
         } else {
             let Embed = new Discord.RichEmbed()
                 .setColor("276e00ff")
