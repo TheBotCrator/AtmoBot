@@ -1,5 +1,5 @@
-const Commando = require('discord.js-commando');
-const Discord = require('discord.js');
+const Commando = Depends.Commando
+const Discord = Depends.Discord
 
 class ServerCommand extends Commando.Command { 
 	constructor(client){
@@ -12,9 +12,9 @@ class ServerCommand extends Commando.Command {
 	}	
 	
 	async run(message, args){
-        if (message.author.equals(Bot.user)) return;
+        if (message.author.equals(Settings.Bot.user)) return;
 		if (message.channel.type === "dm") return;
-		if (Testing === true) return;
+		if (Settings.Testing === true) return;
 		
 		let GuildCreated = message.guild.createdAt.toString()
 		let Embed = new Discord.RichEmbed()
