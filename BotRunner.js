@@ -18,7 +18,7 @@ global.Settings = {
     Version: "0.1.621", // Version of the Bot.
     Testing: false, // Testing State of the Bot.
     Prefix: "=", // Prefix of the Bot.
-    Status: `${Settings.Prefix}help | Sector Welcome Assistant. ${Settings.Version}`, // Status of the Bot.
+    Status: "", // Status of the Bot.
     DevServer: {
         GuildId: "521782616563646465", // Guild Number for Home Bot Discord.
         AnnouncementChannel: "521841249963999232", // Announcements Channel for Discord.
@@ -38,6 +38,7 @@ global.Colors = ["FF0D00", "FF2800", "FF3D00", "FF4F00", "FF5F00", "FF6C00", "FF
 global.Stop = [ ]
 
 // Getting Bot Registry
+Settings.Status = `${Settings.Prefix}help | Sector Welcome Assistant. ${Settings.Version}`
 Settings.Bot.registry
     .registerGroup('support', 'Support Commands')
 	.registerGroup('roles', 'Rainbow Commands')
