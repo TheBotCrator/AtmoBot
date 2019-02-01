@@ -26,7 +26,7 @@ class QueueCommand extends Commando.Command {
 		let ListCount = List.length
 	
 		if (ListCount >= 2048) {
-			Pastee.submit(List, function(Error, Results) {
+			Pastee.paste(List, function(Error, Results) {
 				if (Error) return message.channel.send(":x: Couldn't retrieve Queue Link because of characters exceeding 2048 characters.")
 				let Embed = new Discord.RichEmbed()
 				.setColor("#27037e")
