@@ -43,5 +43,5 @@ class UpdateCommand extends Commando.Command {
     }
 }
 
-module.exports = AnnounceCommand
+module.exports = UpdateCommand
 
