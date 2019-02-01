@@ -26,7 +26,7 @@ class QueueCommand extends Commando.Command {
 		let Count = Queue.length
 	
 		if (Count >= 2048) {
-			Haste(`${Queue}`, "js").then(Results => {
+			Haste(Queue, "js").then(Results => {
 				let Embed = new Discord.RichEmbed()
 				.setColor("#27037e")
 				.setTitle(":musical_note: Song Queue :musical_note:")
