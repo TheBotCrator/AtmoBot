@@ -1,6 +1,5 @@
-const Commando = require('discord.js-commando')
-const Discord = require('discord.js')
-const YTDL = require("ytdl-core")
+const Commando = Depends.Commando
+const Discord = Depends.Discord
 
 class NPCommand extends Commando.Command {
     constructor(client) {
@@ -14,16 +13,16 @@ class NPCommand extends Commando.Command {
 
     async run(message, args) {
         const Args = message.content.split(" ")
-        if (message.author.equals(Bot.user)) return;
+        if (message.author.equals(Settings.Bot.user)) return;
         if (message.channel.type === "dm") return;
-        if (Testing === true) return;
+        if (Settings.Testing === true) return;
 
         var Queue = Records[message.guild.id].Music;
        
 	if (!Queue) return message.channel.send('There is nothing playing.');
 	    let Embed = new Discord.RichEmbed()
 	    .setTitle(":musical_note: Current Song :musical_note:")
-	    .setColor("#27037e")
+         .setColor("#6e00ff")
 	    .addField("Now Playing", `${Queue.Queue[0].title}`)
 	    .addField("Requested By", `${Queue.Queue[0].requester}`);
 	return message.channel.send(Embed);

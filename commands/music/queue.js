@@ -1,6 +1,6 @@
-const Commando = require('discord.js-commando')
-const Discord = require('discord.js')
-const YTDL = require("ytdl-core")
+const Commando = Depends.Commando
+const Discord = Depends.Discord
+
 
 class QueueCommand extends Commando.Command {
     constructor(client) {
@@ -14,9 +14,9 @@ class QueueCommand extends Commando.Command {
 
     async run(message, args) {
         const Args = message.content.split(" ")
-        if (message.author.equals(Bot.user)) return;
+        if (message.author.equals(Settings.Bot.user)) return;
         if (message.channel.type === "dm") return;
-        if (Testing === true) return;
+        if (Settings.Testing === true) return;
 
         var Queue = Records[message.guild.id].Music;
 	    if (!Queue) return message.channel.send(':x: There is nothing playing.');

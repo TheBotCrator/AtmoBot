@@ -1,10 +1,12 @@
-const Commando = require('discord.js-commando')
-const Discord = require('discord.js')
+const Commando = Depends.Commando
+const Discord = Depends.Discord
+
 const { Util } = require('discord.js')
 
-const YTDL = require("ytdl-core")
-const Search = require("yt-search")
-const Info = require("youtube-info")
+const YTDL = Depends.YTDL
+const Search = Depends.Search
+const Info = Depends.Info
+const Playlist = Depends.Playlist
 
 async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 	const Queue = Records[Message.guild.id].Music;
@@ -41,7 +43,6 @@ async function HandleVideo(Video, Message, VoiceChannel, Playlist = false) {
 	} else {
 		let Embed = new Discord.RichEmbed()
 		.setColor("#27037e")
-		.setTitle("Lyaboo Music")
 		.setThumbnail(`${Song.thumbnail}`)
 		.addField("Song Name", `${Song.title}`, true)
 		.addField("Song Link", `${Song.url}`, true)
@@ -73,15 +74,6 @@ async function Play(Guild, Song) {
 		})
 		.on('error', Error => console.error(Error));
 	Dispatcher.setVolumeLogarithmic(Queue.Volume / 5);
-	
-	let Embed = new Discord.RichEmbed()
-		.setColor("#27037e")
-		.setTitle("Lyaboo Music")
-		.setThumbnail(`${Song.thumbnail}`)
-		.addField("Song Name", `${Song.title}`, true)
-		.addField("Song Link", `${Song.url}`, true)
-		.addField("Song Requester", `${Song.requester}`, true);
-		
 	Queue.Text.send(`:musical_note: Now playing: **${Song.title}** Requested by: **${Song.requester}**`);
 }
 
@@ -98,9 +90,9 @@ class PlayCommand extends Commando.Command {
 
     async run(message, args) {
         const Args = message.content.split(" ")
-        if (message.author.equals(Bot.user)) return;
+        if (message.author.equals(Settings.Bot.user)) return;
         if (message.channel.type === "dm") return;
-        if (Testing === true) return;
+        if (Settings.Testing === true) return;
 
         const VoiceChannel = message.member.voiceChannel;
 		if (!VoiceChannel) return message.channel.send(":warning: I'm sorry but you need to be in a voice channel to play music!");
@@ -116,15 +108,30 @@ class PlayCommand extends Commando.Command {
 		const SearchString = Args.slice(1).join(' ');
 		const URL = Args[1] ? Args[1].replace(/<(.+)>/g, '$1') : '';
 
-		if (YTDL.validateURL(URL)) {
-			var ID = YTDL.getVideoID(URL) 
-			console.log(URL) 
-			console.log(ID)
-			Info(ID, function(Err, Results) {
-				if (Err) throw new Error(Err);
-				return HandleVideo(Results, message, VoiceChannel)
-			})
-			
+        if (URL.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
+            Playlist(URL, 'url').then(Results => {
+                let Array = Results.data.playlist
+                if (Array) {
+                    Array.forEach((Song) => {
+                        var ID = YTDL.getVideoID(Song)
+                        Info(ID, function (Err, Results2) {
+                            if (Err) throw new Error(Err);
+                            HandleVideo(Results2, message, VoiceChannel, true)
+                        })
+                    })
+
+                    let Embed = new Discord.RichEmbed()
+                        .setColor("6e00ff")
+                        .setDescription(`Youtube Playlist: ${URL}`)
+                    return message.channel.send(`A Playlist has been added to the queue!`, Embed);
+                }
+            })
+        } else if (YTDL.validateURL(URL)) {
+                var ID = YTDL.getVideoID(URL)
+                Info(ID, function (Err, Results) {
+                    if (Err) throw new Error(Err);
+                    return HandleVideo(Results, message, VoiceChannel)
+                })
 		} else {
 			Search(SearchString, async function(Error, Results) {
 				let Count = 0
