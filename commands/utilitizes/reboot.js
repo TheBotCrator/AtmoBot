@@ -21,7 +21,7 @@ class RebootCommand extends Commando.Command {
         if (Author == Number(DevServer.Developer)) {
             message.channel.send(":warning: Resetting Bot...").then(Mes => Mes.delete(2000))
             Settings.Bot.destroy()
-            Settings.Bot = Bot.login(Settings.DevKeys.Login)
+            Bot.login(Settings.DevKeys.Login)
             return
         } else {
             let Embed = new Discord.RichEmbed()
