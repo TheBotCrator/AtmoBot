@@ -154,7 +154,7 @@ Settings.Bot.on("message", Message => {
 				.addField('Description', `${Message.content}`);        
 									
 				
-				let ActualChannel = Settings.Bot.channels.get(RecordChannel)
+				let ActualChannel = Settings.Bot.channels.get(RChannel)
 				if (ActualChannel){ 
 					ActualChannel.send(SecondEmbed); 
 				} else { 
