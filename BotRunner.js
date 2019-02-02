@@ -128,7 +128,7 @@ Settings.Bot.on("message", Message => {
 	if (Settings.Testing === true) return;
 	
 	Settings.Schemas.Suggestion.findOne({
-		ServerID: message.guild.id,
+		ServerID: Message.guild.id,
 		SuggestionsEnabled: true || false,
 		SuggestionsChannel: Number(Args[2]),
 		RecordChannel: Number(Args[3])
