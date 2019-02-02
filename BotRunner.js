@@ -31,8 +31,8 @@ global.Settings = {
         Login: process.env.BOT_TOKEN // Used for Accessing the Bot.
     },
 	Schemas: {
-		Level: require("../structs/levelSchema.js"),
-		Suggestion: require("../structs/suggestionSchema.js")
+		Level: require("../structs/Schemas/levelSchema.js"),
+		Suggestion: require("../structs/Schemas/suggestionSchema.js")
 	},
     Bot: "", // Client 
 	Connection: `mongodb://${process.env.MonUSERTOKEN}:${process.env.MonPASSTOKEN}@ds024748.mlab.com:24748/lyaboo_server` // Used for the Database
