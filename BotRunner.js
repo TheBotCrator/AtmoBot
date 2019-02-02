@@ -141,7 +141,7 @@ Settings.Bot.on("message", Message => {
 			
 			if (Number(Message.channel.id) === Number(SChannel)){
 				Message.delete(100)
-				if(!Results.SuggestionsEnabled === true) return Message.channel.send(Embed: {description: "This Server isn't Currently accepting Suggestions.", color: "6e00ff"})
+				if(!Results.SuggestionsEnabled === true) return Message.channel.send({embed: {description: "This Server isn't Currently accepting Suggestions.", color: "6e00ff"}}).then(MS => MS.delete(5000))
 
 				let FirstEmbed = new Depends.Discord.RichEmbed()
 				.setColor("6e00ff")
@@ -168,7 +168,7 @@ Settings.Bot.on("message", Message => {
 			} else {
 				console.log("Something went wrong :thonk:")
 			}	
-	}
+	})
 });
 Settings.Bot.on("ready", function () {
     console.log(`${Settings.Name} has loaded and is ready for Usage. Online at ${Settings.Bot.guilds.size}`);
