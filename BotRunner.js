@@ -129,9 +129,7 @@ Settings.Bot.on("message", Message => {
 	
 	Settings.Schemas.Suggestion.findOne({
 		ServerID: Message.guild.id,
-		SuggestionsEnabled: true || false,
-		SuggestionsChannel: Number(Args[2]),
-		RecordChannel: Number(Args[3])
+		SuggestionsEnabled: true || false
 	}, (Error, Results) => {
 		if (Error) console.log(Error);
 			if(!Results) return Message.channel.send(":warning: Database Entry not Found for this Server!")
