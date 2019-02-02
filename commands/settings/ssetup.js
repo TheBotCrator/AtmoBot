@@ -45,14 +45,14 @@ class SSetupCommand extends Commando.Command {
 					let Suggestion = new Settings.Schemas.Suggestion({
 						ServerID: message.guild.id,
 						SuggestionsEnabled: Bool,
-						SuggestionsChannel: Number(Args[2]),
-						RecordChannel: Number(Args[3])
+						SuggestionsChannel: Args[2],
+						RecordChannel: Args[3]
 					})
 					Suggestion.save().then(Results => console.log(Results)).catch(Error => console.log(Error))
 				} else {
 					Results.SuggestionsEnabled = Bool;
-					Results.SuggestionsChannel = Number(Args[2]);
-					Results.RecordChannel = Number(Args[3]);
+					Results.SuggestionsChannel = Args[2];
+					Results.RecordChannel = Args[3];
 					Results.save().catch(Error => console.log(Error))
 				}
 			})
