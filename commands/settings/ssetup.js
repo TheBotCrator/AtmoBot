@@ -34,7 +34,7 @@ class SSetupCommand extends Commando.Command {
 			if (!SuggestionChannel) return message.channel.send(":x: Suggestions Channel Id Invalid!")
 			if (!SuggestionLogs) return message.channel.send(":x: Suggestions Log Channel Id Invalid!");
 
-			if Settings.Schemas.Suggestion.findOne({
+			Settings.Schemas.Suggestion.findOne({
 				ServerID: message.guild.id
 			}, (Error, Results) => {
 				if (Error) console.log(Error);
