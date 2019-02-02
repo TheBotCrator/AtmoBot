@@ -127,9 +127,9 @@ Settings.Bot.on("message", Message => {
 	if (Message.content.startsWith(Settings.Prefix)) return;
 	if (Settings.Testing === true) return;
 	
-	if Settings.Schemas.Suggestion.findOne({
-		ServerID: message.guild.id
-		SuggestionsEnabled: Bool,
+	Settings.Schemas.Suggestion.findOne({
+		ServerID: message.guild.id,
+		SuggestionsEnabled: true || false,
 		SuggestionsChannel: Number(Args[2]),
 		RecordChannel: Number(Args[3])
 	}, (Error, Results) => {
