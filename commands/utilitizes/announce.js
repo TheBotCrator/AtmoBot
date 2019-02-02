@@ -26,7 +26,7 @@ class AnnounceCommand extends Commando.Command {
             let Guild = Settings.Bot.guilds.find(`${DevServer.GuildId}`)
             if (!Guild) return message.channel.send(":x: Couldn't Find DevServer Guild!")
 
-            let Channel = Guild.channels.find(`${DevServer.AnnouncementChannel}`)
+            let Channel = Settings.Bot.channels.find(`${DevServer.AnnouncementChannel}`)
             if (!Channel) return message.channel.send(":x: Couldn't Find DevServer Announcements!")
 
         
