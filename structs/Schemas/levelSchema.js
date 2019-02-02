@@ -1,4 +1,4 @@
-const Mongoose = Settings.Mongoose
+const Mongoose = Depends.Mongoose
 
 let LevelSchema = new Depends.MongoDB.Schema({
 	UserId: String,

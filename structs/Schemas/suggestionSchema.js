@@ -1,4 +1,4 @@
-const Mongoose = Settings.Mongoose
+const Mongoose = Depends.Mongoose
 
 let SuggestionSchema = new Depends.MongoDB.Schema({
 	ServerID: String,
