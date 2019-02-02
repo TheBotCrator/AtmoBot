@@ -81,10 +81,22 @@ async function Color() {
 Settings.Bot.on("guildCreate", Guild => {
     console.log(`New guild joined: ${Guild.name} (id: ${Guild.id}). This guild has ${Guild.memberCount} members!`);
     if (Settings.Testing === false) Bot.user.setActivity(`${Settings.Status}`, {type: "STREAMING"})
+	
+	if (!Records[Guild.id]) {
+		Records[Guild.id] = {
+				
+		}	
+		return
+	}		
 });
 Settings.Bot.on("guildDelete", Guild => {
     console.log(`I have been removed from: ${Guild.name} (id: ${Guild.id})`);
     if (Settings.Testing === false) Bot.user.setActivity(`${Settings.Status}`, {type: "STREAMING"})
+		
+	if (Records[Guild.id]) {
+		delete Records[Guild.id]
+		return
+	}	
 });
 
 Settings.Bot.on("guildMemberAdd", Member => {
@@ -128,8 +140,7 @@ Settings.Bot.on("message", Message => {
 	if (Settings.Testing === true) return;
 	
 	Settings.Schemas.Suggestion.findOne({
-		ServerID: Message.guild.id,
-		SuggestionsEnabled: true || false
+		ServerID: Message.guild.id
 	}, (Error, Results) => {
 		if (Error) console.log(Error);
 			if(!Results) return Message.channel.send(":warning: Database Entry not Found for this Server!")
@@ -178,6 +189,7 @@ Settings.Bot.on("ready", function () {
         Settings.Bot.user.setActivity("Maintenance Mode On, Will Be Back Soon.")
         return;
     }
+	
     Settings.Bot.guilds.forEach((guild) => {
 		if (!Records[guild.id]) {
 			Records[guild.id] = {
