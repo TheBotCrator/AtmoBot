@@ -18,8 +18,7 @@ class AnnounceCommand extends Commando.Command {
         if (Settings.Testing === true) return;
 
         let Args = message.content.split(" ")
-        Args.splice(0, 1)
-        let Annoucee = Args.join(" ")
+        let Annoucee = Args.slice(1).join(" ")
 
         let Author = Number(message.author.id)
         if (Author === Number(DevServer.Developer)) {
