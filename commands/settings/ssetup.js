@@ -19,7 +19,10 @@ class SSetupCommand extends Commando.Command {
 		
 		if (message.member.hasPermission('ADMINISTRATOR')) {
 			let Args = message.content.split(" ")
-			Mongoose.connect(Settings.Connection + "\Suggestions")
+			Mongoose.connect(Settings.Connection + "\Suggestions", {useNewUrlParser: true })
+			.catch(Error => {
+				console.log(Error)
+			})
 			
 			let Bool;
 			
