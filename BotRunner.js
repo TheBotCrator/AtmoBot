@@ -59,7 +59,7 @@ Settings.Bot.registry
     .registerCommandsIn(__dirname + "/commands");
 
 // Opening Connections
-Depends.MongoDB.connect(Settings.Connection, {useNewUrlParser: true })
+Depends.Mongoose.connect(Settings.Connection, {useNewUrlParser: true })
 .catch(Error => {
 	console.log(Error)
 })
