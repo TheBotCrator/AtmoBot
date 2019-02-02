@@ -1,6 +1,6 @@
 const Mongoose = Depends.Mongoose
 
-let SuggestionSchema = new Depends.MongoDB.Schema({
+let SuggestionSchema = new Mongoose.Schema({
 	ServerID: String,
 	SuggestionsEnabled: Boolean,
 	SuggestionsChannel: Number,

@@ -1,6 +1,6 @@
 const Mongoose = Depends.Mongoose
 
-let LevelSchema = new Depends.MongoDB.Schema({
+let LevelSchema = new Mongoose.Schema({
 	UserId: String,
 	LevelNumber: Number,
 	XPNumber: Number,
