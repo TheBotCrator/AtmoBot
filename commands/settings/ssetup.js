@@ -52,7 +52,7 @@ class SSetupCommand extends Commando.Command {
 					Results.RecordChannel = Number(Args[3]);
 					Results.save().catch(Error => console.log(Error))
 				}
-			}
+			})
 			
 		
 			let RichEmbed = new Discord.RichEmbed()
