@@ -6,7 +6,7 @@ class AnnounceCommand extends Commando.Command {
     constructor(client) {
         super(client, {
             name: 'announce',
-            group: 'utilitizes',
+            group: 'utilities',
             memberName: "announce",
             description: 'Will announce a message to the Home Discord Servers Announcements Channel.'
         });
