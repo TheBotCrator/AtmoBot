@@ -1,5 +1,6 @@
 const Commando = Depends.Commando
 const Discord = Depends.Discord
+const Mongoose = Depends.Mongoose
 
 class SSetupCommand extends Commando.Command { 
 	constructor(client){
@@ -18,34 +19,42 @@ class SSetupCommand extends Commando.Command {
 		
 		if (message.member.hasPermission('ADMINISTRATOR')) {
 			let Args = message.content.split(" ")
-
-			if (!Records[message.guild.id]) { 
-				Records[message.guild.id] = { 
-
-				}
-			};
-			if (!Records[message.guild.id].Suggestions) {
-				Records[message.guild.id].Suggestions = {
-					
-				}		
-			}	
-			// ly!ssetup true channel-nameid channel-logid 
+			Mongoose.connect(Settings.Connection + "\Suggestions")
 			
-			console.log(`${Args}`)
+			let Bool;
+			
 			if (Args[1] === "true") {
-				Records[message.guild.id].Suggestions.USEABLE = true
+				Bool = true
 			} else {
-				Records[message.guild.id].Suggestions.USEABLE = false
+				Bool = false
 			};
 			
 			let SuggestionChannel = message.guild.channels.get(Args[2]);
 			let SuggestionLogs = message.guild.channels.get(Args[3]);
 			if (!SuggestionChannel) return message.channel.send(":x: Suggestions Channel Id Invalid!")
 			if (!SuggestionLogs) return message.channel.send(":x: Suggestions Log Channel Id Invalid!");
+
+			if Settings.Schemas.Suggestion.findOne({
+				ServerID: message.guild.id
+			}, (Error, Results) => {
+				if (Error) console.log(Error);
+				if(!Results){
+					let Suggestion = new Settings.Schemas.Suggestion({
+						ServerID: message.guild.id,
+						SuggestionsEnabled: Bool,
+						SuggestionsChannel: Number(Args[2]),
+						RecordChannel: Number(Args[3])
+					})
+					Suggestion.save().then(Results => console.log(Results)).catch(Error => console.log(Error))
+				} else {
+					Results.SuggestionsEnabled = Bool;
+					Results.SuggestionChannel = Number(Args[2]);
+					Results.RecordChannel = Number(Args[3]);
+					Results.save().catch(Error => console.log(Error))
+				}
+			}
 			
-			Records[message.guild.id].Suggestions.CHANNEL = Args[2]
-			Records[message.guild.id].Suggestions.RECORD = Args[3]
-			
+		
 			let RichEmbed = new Discord.RichEmbed()
 				.setTitle("Suggestion Setup Complete!")
 				.setThumbnail(message.member.user.displayAvatarURL)
