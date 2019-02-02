@@ -7,4 +7,4 @@ let SuggestionSchema = new Mongoose.Schema({
 	RecordChannel: Number
 });
 
-module.exports = Mongoose.module("Suggestions", SuggestionSchema)
+module.exports = Mongoose.model("Suggestions", SuggestionSchema)

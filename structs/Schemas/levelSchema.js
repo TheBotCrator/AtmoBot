@@ -7,4 +7,4 @@ let LevelSchema = new Mongoose.Schema({
 	MoneyNumber: Number
 })
 
-module.exports = Mongoose.module("Level", LevelSchema)
+module.exports = Mongoose.model("Level", LevelSchema)
