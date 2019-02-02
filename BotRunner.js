@@ -134,7 +134,7 @@ Settings.Bot.on("message", Message => {
 		if (Error) console.log(Error);
 			if(!Results) return Message.channel.send(":warning: Database Entry not Found for this Server!")
 				
-			let SChannel = Results.SuggestionChannel
+			let SChannel = Results.SuggestionsChannel
 			let RChannel = Results.RecordChannel
 			
 			if (Number(Message.channel.id) === Number(SChannel)){
