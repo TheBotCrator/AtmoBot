@@ -32,7 +32,7 @@ class AnnounceCommand extends Commando.Command {
         
             let Embed = new Discord.RichEmbed()
                 .setColor("6e00ff")
-                .setDescription(Anouncee);
+                .setDescription(`${Anouncee}`);
 
             return Channel.send(`@everyone New Announcement from Developer <@${DevServer.Developer}>`, Embed)
         } else {
