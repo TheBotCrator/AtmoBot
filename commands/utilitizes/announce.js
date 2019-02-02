@@ -22,7 +22,7 @@ class AnnounceCommand extends Commando.Command {
         let Annoucee = Args.join(" ")
 
         let Author = Number(message.author.id)
-        if (Author == Number(DevServer.Developer)) {
+        if (Author === Number(DevServer.Developer)) {
             let Guild = Settings.Bot.guilds.find(`${DevServer.GuildId}`)
             if (!Guild) return message.channel.send(":x: Couldn't Find DevServer Guild!")
 
@@ -32,7 +32,7 @@ class AnnounceCommand extends Commando.Command {
         
             let Embed = new Discord.RichEmbed()
                 .setColor("6e00ff")
-                .setDescription(`${Anouncee}`);
+                .setDescription(`${Annoucee}`);
 
             return Channel.send(`@everyone New Announcement from Developer <@${DevServer.Developer}>`, Embed)
         } else {
@@ -42,7 +42,6 @@ class AnnounceCommand extends Commando.Command {
             message.channel.send(Embed).then(Message => Message.delete(5000))
             return
         }
-        
     }
 }
 
