@@ -1,10 +1,12 @@
 // Coded by Christopher H::Lyawoo#9768
 
+// Getting Bot Dependencies
 global.Depends = {
     Discord: require('discord.js'), // Library for Hosting Bot.
     Commando: require('discord.js-commando'), // Library Extension for Hosting Bot.
     Timeout: require('foreach-timeout'), // Used for Rainbow Roles.
 	Pastee: require("pastee"), // Used for Maintaining Data exceed overing Character Limits.
+	Mongoose: require("mongoose"), // Used for Storing Data
 	
     // Youtube and Music Dependencies
     YTDL: require('ytdl-core'), // To Host Music for Youtube.
@@ -13,7 +15,7 @@ global.Depends = {
     Playlist: require('youtube-playlist') // To get a playlist of Songs from Youtube.
 }
 
-// Getting Bot Version Information
+// Getting Bot Settings Information
 global.Settings = {
     Name: "Lyaboo", // Name of Bot.
     Version: "0.1.621", // Version of the Bot.
@@ -26,11 +28,14 @@ global.Settings = {
         Developer: "417835827700301836" // Bot Developer for Lyaboo.
     },
     DevKeys: {
-        Login: process.env.BOT_TOKEN, // Used for Accessing the Bot.
-        Youtube: process.env.YOUTUBE_TOKEN, // Used for Getting Youtube API stuff.
-		// Soundcloud: process.env.SOUNDCLOUD_TOKEN // Used for Getting Soundloud API stuff.
+        Login: process.env.BOT_TOKEN // Used for Accessing the Bot.
     },
-    Bot: ""
+	Schemas: {
+		Level: require("../structs/levelSchema.js"),
+		Suggestion: require("../structs/suggestionSchema.js")
+	},
+    Bot: "", // Client 
+	Connection: `mongodb://${process.env.MonUSERTOKEN}:${process.env.MonPASSTOKEN}@ds024748.mlab.com:24748/lyaboo_server` // Used for the Database
 }
 global.Records = { // Used for Storing Temporary Information.
 
@@ -49,8 +54,15 @@ Settings.Bot.registry
 	.registerGroup('settings', 'Settings Commands')
 	.registerGroup('music', 'Vibes Commands')
 	//.registerGroup('moderation', "Moderation Commands")
-    .registerGroup('utilitizes', 'Developer Commands')
+	//.registerGroup('economy', "Economy Commands")
+    .registerGroup('utilities', 'Developer Commands')
     .registerCommandsIn(__dirname + "/commands");
+
+// Opening Connections
+Depends.MongoDB.connect(Settings.Connection, {useNewUrlParser: true })
+.catch(Error => {
+	console.log(Error)
+})
 
 // Getting Rainbow Functions
 async function Color() {
@@ -115,43 +127,48 @@ Settings.Bot.on("message", Message => {
 	if (Message.content.startsWith(Settings.Prefix)) return;
 	if (Settings.Testing === true) return;
 	
-	// Suggestions Portion
-	if (!Records[Message.guild.id]) return;
-	if (!Records[Message.guild.id].Suggestions) return; 
-	
-	let RecordChannel = Records[Message.guild.id].Suggestions.RECORD
-	let SuggestionChannel = Records[Message.guild.id].Suggestions.CHANNEL
-	if (!RecordChannel) return;
-    if (!SuggestionChannel) return;
-	
-	if (Number(Message.channel.id) === Number(SuggestionChannel)){
-        Message.delete(100)
-		if (!Records[Message.guild.id].Suggestions.USEABLE === true) return Message.channel.send(`:Warning: ${Message.author} This Server is Currently not Accepting Suggestions!`); 
-		
-		let FirstEmbed = new Depends.Discord.RichEmbed()
-		.setColor("6e00ff")
-		.setTimestamp()
-		.addField("Beta Feature", "Thank you for testing this Feature! Your data has been recorded, and staff will review soon! These messages will disappear in a few seconds.");
-		
-		let SecondEmbed = new Depends.Discord.RichEmbed()
-		.setColor("6e00ff")
-		.setTimestamp()
-		.setFooter(`Posted by ${Message.author.username} | #${Message.author.discriminator}`, Message.author.displayAvatarURL)
-		.setAuthor(`Feedback #${Message.member.user.id}`, Message.guild.iconURL)
-		.addField('Description', `${Message.content}`);        
-							
-		let ActualChannel = Settings.Bot.channels.get(RecordChannel)
-		if (ActualChannel){ 
-			ActualChannel.send(SecondEmbed); 
-		} else { 
-			return Message.channel.send(":x: Cannot Log Suggestions due to Error!")
-		}
-
-		Message.channel.send(FirstEmbed).then(Message => Message.delete(5000));
+	if Settings.Schemas.Suggestion.findOne({
+		ServerID: message.guild.id
+		SuggestionsEnabled: Bool,
+		SuggestionsChannel: Number(Args[2]),
+		RecordChannel: Number(Args[3])
+	}, (Error, Results) => {
+		if (Error) console.log(Error);
+			if(!Results) return Message.channel.send(":warning: Database Entry not Found for this Server!")
 				
-	} else {
-		console.log("Something went wrong :thonk:")
-	}	
+			let SChannel = Results.SuggestionChannel
+			let RChannel = Results.RecordChannel
+			
+			if (Number(Message.channel.id) === Number(SChannel)){
+				Message.delete(100)
+				if(!Results.SuggestionsEnabled === true) return Message.channel.send(Embed: {description: "This Server isn't Currently accepting Suggestions.", color: "6e00ff"})
+
+				let FirstEmbed = new Depends.Discord.RichEmbed()
+				.setColor("6e00ff")
+				.setTimestamp()
+				.addField("Beta Feature", "Thank you for testing this Feature! Your data has been recorded, and staff will review soon! These messages will disappear in a few seconds.");
+				
+				let SecondEmbed = new Depends.Discord.RichEmbed()
+				.setColor("6e00ff")
+				.setTimestamp()
+				.setFooter(`Posted by ${Message.author.username} | #${Message.author.discriminator}`, Message.author.displayAvatarURL)
+				.setAuthor(`Feedback #${Message.member.user.id}`, Message.guild.iconURL)
+				.addField('Description', `${Message.content}`);        
+									
+				
+				let ActualChannel = Settings.Bot.channels.get(RecordChannel)
+				if (ActualChannel){ 
+					ActualChannel.send(SecondEmbed); 
+				} else { 
+					return Message.channel.send(":x: Cannot Log Suggestions due to Error!")
+				}
+
+				Message.channel.send(FirstEmbed).then(Message => Message.delete(5000));
+				
+			} else {
+				console.log("Something went wrong :thonk:")
+			}	
+	}
 });
 Settings.Bot.on("ready", function () {
     console.log(`${Settings.Name} has loaded and is ready for Usage. Online at ${Settings.Bot.guilds.size}`);
