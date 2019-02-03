@@ -62,7 +62,7 @@ Settings.Bot.registry
     .registerCommandsIn(__dirname + "/commands");
 
 // Binding Connections
-Depends.FS.recurse("structs/Events", (Path, Rel, Name) => {
+Depends.FS.async("structs/Events", (Path, Rel, Name) => {
 	console.log("In Progress")
 	if (!Name) return console.log("Failed");
 	if (Name.split('.')[0] !== "js") return;
