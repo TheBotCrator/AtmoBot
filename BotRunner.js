@@ -2,7 +2,7 @@
 
 // Getting Bot Dependencies
 global.Depends = {
-	FS: require('readdir-enhanced'), // File System
+	FS: require('readdir'), // File System
 	// Primary Dependencies
     Discord: require('discord.js'), // Library for Hosting Bot.
     Commando: require('discord.js-commando'), // Library Extension for Hosting Bot.
@@ -62,8 +62,10 @@ Settings.Bot.registry
     .registerCommandsIn(__dirname + "/commands");
 
 // Binding Connections
-Depends.FS.async(__dirname + "/structs/Events", (Path, Rel, Name) => {
-	console.log(`${Path} ГГ ${Name}`)
+var Files = Depends.FS.readSync('structs/Events')
+console.log(Files)
+/*Depends.FS.async(__dirname + "structs/Events", (Path, Rel, Name) => {
+	console.log("In Progress")
 	if (!Name) return console.log("Failed");
 	if (Name.split('.')[0] !== "js") return;
 	
@@ -71,7 +73,7 @@ Depends.FS.async(__dirname + "/structs/Events", (Path, Rel, Name) => {
 	console.log(EventName)
 	let Event = require(__dirname + `/structs/Events/${Name}`)
 	Settings.Bot.on(EventName, Event.bind(null, Settings.Bot))
-})
+})*/
 
 // Opening Connections
 Depends.Mongoose.connect(Settings.Connection, {useNewUrlParser: true }).catch(Error => console.error(Error))
