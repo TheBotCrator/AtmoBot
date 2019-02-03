@@ -5,4 +5,4 @@ let RoleSchema = new Mongoose.Schema({
 	Roles: Array
 });
 
-module.exports = Mongoose.model("Roles", SuggestionSchema)
+module.exports = Mongoose.model("Roles", RoleSchema)
