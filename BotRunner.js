@@ -2,8 +2,7 @@
 
 // Getting Bot Dependencies
 global.Depends = {
-	Req: require('require-all'), // Used for Grabbing Events
-	
+	FS: require('file-system'), // File System
 	// Primary Dependencies
     Discord: require('discord.js'), // Library for Hosting Bot.
     Commando: require('discord.js-commando'), // Library Extension for Hosting Bot.
@@ -63,20 +62,17 @@ Settings.Bot.registry
     .registerCommandsIn(__dirname + "/commands");
 
 // Binding Connections
-var Files = Depends.Req(__dirname, "structs/Events")
-Files.forEach((file) => {
-	if (file.split('.')[0] !== "js") return;
+Depends.FS.recurse("structs/Events", (Path, Rel, Name) => {
+	if (!Name) return;
+	if (Name.split('.')[0] !== "js") return;
 	
-	let EventName = file.split('.')[0]
-	let Event = require(__dirname + `/structs/Events/${file}`)
+	let EventName = Name.split('.')[0]
+	let Event = require(__dirname + `/structs/Events/${Name}`)
 	Settings.Bot.on(EventName, Event.bind(null, Settings.Bot))
-})
+}).catch(Error => console.error(Error))
 
 // Opening Connections
-Depends.Mongoose.connect(Settings.Connection, {useNewUrlParser: true })
-.catch(Error => {
-	console.log(Error)
-})
+Depends.Mongoose.connect(Settings.Connection, {useNewUrlParser: true }).catch(Error => console.error(Error))
 
 // Getting Bot Functions
 Settings.Bot.login(Settings.DevKeys.Login)
