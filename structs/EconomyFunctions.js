@@ -1,8 +1,8 @@
 module.exports = class Economoy {
 	addExperience(Message){
-		Mongoose.connect(Settings.Connection + "\Level", {useNewUrlParser: true })
+		Depends.Mongoose.connect(Settings.Connection + "\Level", {useNewUrlParser: true })
 
-		return Settings.Schemas.Level.findOne({
+		Settings.Schemas.Level.findOne({
 			UserId: Message.author.id
 		}), (Error, Results) = {
 			let NewXP = Math.floor(Math.random() * 7) + 8;
