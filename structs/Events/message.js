@@ -4,9 +4,38 @@ module.exports = (Bot, Message) => {
 	if (Message.content.startsWith(Settings.Prefix)) return;
 	if (Settings.Testing === true) return;
 	
-	let Functions = require("/app/structs/EconomyFunctions.js")(Message)
+	Settings.Schemas.Level.findOne({
+		UserId: Message.author.id
+	}), (Error, Results) => {
+		let NewXP = Math.floor(Math.random() * 7) + 8;
+		if (!Results) {
+			let Level = new Settings.Schemas.Level({
+				UserId: Message.guild.id,
+				LevelNumber: 1,
+				XPNumber: NewXP,
+				MoneyNumber: 0
+			})
+			Level.save().then(Results => console.log(Results)).catch(Error => console.log(Error))
+		} else {
+			let CurrentLevel = Results.LevelNumber;
+			let CurrentXP = Results.XPNumber;
+			let NextLevel = Results.LevelNumber * 300;
+					
+			Results.XPNumber = CurrentXP + NewXP;
+
+			if(NextLevel <= Results.XPNumber){
+				Results.LevelNumber = Results.LevelNumber + 1;
+				let NewLevel = Results.LevelNumber
+				let Embed = new Discord.RichEmbed()
+				.setColor("6e00ff")
+				.setTitle("Congratulations!")
+				.setDescription(`You have leveled up to Level ${NewLevel}`);
+				Message.channel.send(`${Message.author}`, Embed).then(MSG => MSG.delete(10000))
+			}
+			Results.save().catch(Error => console.log(Error))
+		}
+	}
 	
-	// Coming Soon!
 	Settings.Schemas.Suggestion.findOne({
 		ServerID: Message.guild.id
 	}, (Error, Results) => {
