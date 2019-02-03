@@ -62,7 +62,7 @@ Settings.Bot.registry
     .registerCommandsIn(__dirname + "/commands");
 
 // Binding Connections
-Depends.FS.async("../structs/Events", (Path, Rel, Name) => {
+Depends.FS.async(__dirname + "/structs/Events", (Path, Rel, Name) => {
 	console.log(`${Path} ГГ ${Name}`)
 	if (!Name) return console.log("Failed");
 	if (Name.split('.')[0] !== "js") return;
