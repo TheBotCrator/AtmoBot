@@ -13,7 +13,7 @@ class SSetupCommand extends Commando.Command {
 	}	
 	
 	async run(message, args){
-        if (message.author.equals(Settings.Bot.user)) return;
+        if (message.author.bot) return;
 		if (message.channel.type === "dm") return;
 		if (Settings.Testing === true) return;
 		
@@ -62,7 +62,7 @@ class SSetupCommand extends Commando.Command {
 				.setTitle("Suggestion Setup Complete!")
 				.setThumbnail(message.member.user.displayAvatarURL)
 				.setColor("#27037e")
-				.setFooter(`Brought to you by Lyaboo Development.`)
+				.setFooter(`Brought to you by Lyaboo.`)
 				.addField("ENABLED", `${Args[1]}`)
 				.addField("NORMAL CHANNEL", `${Args[2]}`)
 				.addField("LOG CHANNEL", `${Args[3]}`)
