@@ -64,16 +64,15 @@ Settings.Bot.registry
 // Binding Connections
 var Files = Depends.FS.readSync('structs/Events')
 console.log(Files)
-/*Depends.FS.async(__dirname + "structs/Events", (Path, Rel, Name) => {
-	console.log("In Progress")
-	if (!Name) return console.log("Failed");
-	if (Name.split('.')[0] !== "js") return;
+Files.forEach((File) => {
+	if (!File) return console.log("Failed");
+	if (File.split('.')[0] !== "js") return;
 	
-	let EventName = Name.split('.')[0]
+	let EventName = File.split('.')[0]
 	console.log(EventName)
-	let Event = require(__dirname + `/structs/Events/${Name}`)
+	let Event = require(__dirname + `/structs/Events/${File}`)
 	Settings.Bot.on(EventName, Event.bind(null, Settings.Bot))
-})*/
+})
 
 // Opening Connections
 Depends.Mongoose.connect(Settings.Connection, {useNewUrlParser: true }).catch(Error => console.error(Error))
