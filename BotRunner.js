@@ -63,15 +63,18 @@ Settings.Bot.registry
 
 // Binding Connections
 var Files = Depends.FS.readSync('structs/Events')
-console.log(Files)
 Files.forEach((File) => {
-	if (!File) return console.log("Failed");
-	if (File.split('.')[0] !== "js") return;
-	
-	let EventName = File.split('.')[0]
-	console.log(EventName)
-	let Event = require(__dirname + `/structs/Events/${File}`)
-	Settings.Bot.on(EventName, Event.bind(null, Settings.Bot))
+	try {
+		if (File.split('.').slice(-1)[0] !== "js") return;
+		let EventName = File.split('.')[0]
+		console.log(EventName)
+		
+		let Event = require(__dirname + `/structs/Events/${File}`)
+		Settings.Bot.on(EventName, Event.bind(null, Settings.Bot))
+		delete require.cache[require.resolve(__dirname + `/structs/Events/${File}`)];
+	} catch(Error) {
+		console.error(Error)
+	}	
 })
 
 // Opening Connections
