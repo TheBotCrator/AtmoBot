@@ -15,8 +15,8 @@
 	
 	 
 	"require-all": "^3.0.0",
-	"browsify": "^16.2.3"
-    "npm": "^6.4.1",
+	"browsify": "^16.2.3",
+        "npm": "^6.4.1",
 	"node-opus": "^0.3.1",
 	
 	"request": "^2.88.0",
