@@ -57,7 +57,7 @@ Settings.Bot.registry
 	.registerGroup('settings', 'Settings Commands')
 	.registerGroup('music', 'Vibes Commands')
 	//.registerGroup('moderation', "Moderation Commands")
-	//.registerGroup('economy', "Economy Commands")
+	.registerGroup('economy', "Economy Commands")
     .registerGroup('utilities', 'Developer Commands')
 	.registerDefaults()
     .registerCommandsIn(__dirname + "/commands");
