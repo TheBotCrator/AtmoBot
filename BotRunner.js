@@ -34,7 +34,8 @@ global.Settings = {
     },
 	Schemas: {
 		Level: require(__dirname + "/structs/Schemas/levelSchema.js"),
-		Suggestion: require(__dirname + "/structs/Schemas/suggestionSchema.js")
+		Suggestion: require(__dirname + "/structs/Schemas/suggestionSchema.js"),
+		Role: require(__dirname + "/structs/Schemas/roleSchema.js")
 	},
     Bot: "", // Client 
 	Connection: `mongodb://${process.env.MonUSERTOKEN}:${process.env.MonPASSTOKEN}@ds024748.mlab.com:24748/lyaboo_server` // Used for the Database
@@ -49,7 +50,7 @@ Settings.Status = `${Settings.Prefix}help | Sector Welcome Assistant. ${Settings
 
 Settings.Bot.registry
     .registerGroup('support', 'Support Commands')
-	.registerGroup('roles', 'Rainbow Commands')
+	.registerGroup('roles', 'Role Commands')
 	.registerGroup('settings', 'Settings Commands')
 	.registerGroup('music', 'Vibes Commands')
 	//.registerGroup('moderation', "Moderation Commands")
