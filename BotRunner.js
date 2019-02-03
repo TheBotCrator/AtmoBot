@@ -2,7 +2,7 @@
 
 // Getting Bot Dependencies
 global.Depends = {
-	FS: require('file-system'), // File System
+	FS: require('readdir-enhanced'), // File System
 	// Primary Dependencies
     Discord: require('discord.js'), // Library for Hosting Bot.
     Commando: require('discord.js-commando'), // Library Extension for Hosting Bot.
@@ -63,10 +63,12 @@ Settings.Bot.registry
 
 // Binding Connections
 Depends.FS.recurse("structs/Events", (Path, Rel, Name) => {
-	if (!Name) return;
+	console.log("In Progress")
+	if (!Name) return console.log("Failed");
 	if (Name.split('.')[0] !== "js") return;
 	
 	let EventName = Name.split('.')[0]
+	console.log(EventName)
 	let Event = require(__dirname + `/structs/Events/${Name}`)
 	Settings.Bot.on(EventName, Event.bind(null, Settings.Bot))
 })
