@@ -1,6 +1,6 @@
-module.exports = (Bot, Message){
-	Depends.Mongoose.connect(Settings.Connection + "\Level", {useNewUrlParser: true })
+Depends.Mongoose.connect(Settings.Connection + "\Level", {useNewUrlParser: true })
 
+module.exports = {
 	Settings.Schemas.Level.findOne({
 		UserId: Message.author.id
 	}), (Error, Results) => {
@@ -18,7 +18,7 @@ module.exports = (Bot, Message){
 			let CurrentLevel = Results.LevelNumber;
 			let CurrentXP = Results.XPNumber;
 			let NextLevel = Results.LevelNumber * 300;
-				
+					
 			Results.XPNumber = CurrentXP + NewXP;
 
 			if(NextLevel <= Results.XPNumber){
@@ -33,4 +33,4 @@ module.exports = (Bot, Message){
 			Results.save().catch(Error => console.log(Error))
 		}
 	}
-}
+}	
