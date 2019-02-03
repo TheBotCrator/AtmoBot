@@ -8,7 +8,7 @@ module.exports = (Bot, Message) => {
 	
 	Settings.Schemas.Level.findOne({
 		UserId: Message.author.id
-	}), (Error, Results) => {
+	}, (Error, Results) => {
 		let NewXP = Math.floor(Math.random() * 7) + 8;
 		if (!Results) {
 			let Level = new Settings.Schemas.Level({
@@ -36,7 +36,7 @@ module.exports = (Bot, Message) => {
 			}
 			Results.save().catch(Error => console.log(Error))
 		}
-	}
+	})
 	
 	Settings.Schemas.Suggestion.findOne({
 		ServerID: Message.guild.id
