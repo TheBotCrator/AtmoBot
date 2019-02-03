@@ -42,7 +42,7 @@ class RSetupCommand extends Commando.Command {
 					Role.save().then(Results => console.log(Results)).catch(Error => console.log(Error))
 				} else {
 					let SetFRoles = [LevelArg, RoleId]
-					Results.Role.push(SetFRoles)
+					Results.Roles.push(SetFRoles)
 					Results.save().catch(Error => console.log(Error))
 				}
 			})
