@@ -1,5 +1,7 @@
 module.exports = class Economoy {
 	addExperience(Message){
+		Mongoose.connect(Settings.Connection + "\Level", {useNewUrlParser: true })
+
 		return Settings.Schemas.Level.findOne({
 			UserId: Message.author.id
 		}), (Error, Results) = {
