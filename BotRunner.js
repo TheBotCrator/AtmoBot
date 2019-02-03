@@ -2,7 +2,7 @@
 
 // Getting Bot Dependencies
 global.Depends = {
-	Path: require('path'), // Used for Library Directory.
+	Req: require('require-all'), // Used for Grabbing Events
 	
 	// Primary Dependencies
     Discord: require('discord.js'), // Library for Hosting Bot.
@@ -63,7 +63,7 @@ Settings.Bot.registry
     .registerCommandsIn(__dirname + "/commands");
 
 // Binding Connections
-var Files = Depends.Path.join(__dirname, "structs/Events")
+var Files = Depends.Req(__dirname, "structs/Events")
 Files.forEach((file) => {
 	if (file.split('.')[0] !== "js") return;
 	
