@@ -32,14 +32,14 @@ class RankCommand extends Commando.Command {
 			if(!Results){
 				let Embed = new Discord.RichEmbed()
 				.setColor("6e00ff")
-				.setTitle(`Now Showing Profile of ${User.user.username}`)
+				.setTitle(`Now Showing Profile of ${User.username || User.user.username}`)
 				.setDescription(`Data doesn't Exist.`)
 				.setThumbnail(User.user.displayAvatarURL);
 				return message.channel.send(":warning: User not found in Database!", Embed)
 			} else {
 				let Embed = new Discord.RichEmbed()
 				.setColor("6e00ff")
-				.setTitle(`Now Showing Profile of ${User.user.username}`)
+				.setTitle(`Now Showing Profile of ${User.username || User.user.username}`)
 				.setDescription(`Level: ${Results.LevelNumber}\nExperience: ${Results.XPNumber}\nBalance: ${Results.MoneyNumber}`)
 				.setThumbnail(User.user.displayAvatarURL);
 				return message.channel.send(Embed)
