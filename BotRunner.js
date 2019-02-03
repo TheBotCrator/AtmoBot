@@ -63,7 +63,7 @@ Settings.Bot.registry
 
 // Binding Connections
 Depends.FS.async("structs/Events", (Path, Rel, Name) => {
-	console.log("In Progress")
+	console.log(`${Path} ГГ ${Name}`)
 	if (!Name) return console.log("Failed");
 	if (Name.split('.')[0] !== "js") return;
 	
