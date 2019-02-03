@@ -49,7 +49,7 @@ module.exports = (Bot, Message) => {
 						if(!LvlNum) return;
 						
 						if(Number(LvlNum) <= NewLevel){ 
-							let CU = Message.guild.fetchMember(Message.author.id)
+							let CU = Message.guild.fetchMember(Message.author)
 							CU.addRole(ARole)
 						};
 					})
