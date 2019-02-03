@@ -48,7 +48,10 @@ module.exports = (Bot, Message) => {
 						if(!ARole) return;
 						if(!LvlNum) return;
 						
-						if(Number(LvlNum) <= NewLevel) Message.guild.fetchMember(Message.author.user).addRole(ARole);
+						if(Number(LvlNum) <= NewLevel){ 
+							let CU = Message.guild.fetchMember(Message.author.id)
+							CU.addRole(ARole)
+						};
 					})
 				})
 			}
