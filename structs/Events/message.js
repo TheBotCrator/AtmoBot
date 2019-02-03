@@ -34,7 +34,7 @@ module.exports = (Bot, Message) => {
 				.setDescription(`You have leveled up to Level ${NewLevel}`);
 				Message.channel.send(`${Message.author}`, Embed).then(MSG => MSG.delete(10000))
 				
-				Settings.Schemas.Level.findOne({
+				Settings.Schemas.Role.findOne({
 					ServerID: Message.guild.id
 				}, (Error, Results) => {
 					if(Error) console.error(Error);
