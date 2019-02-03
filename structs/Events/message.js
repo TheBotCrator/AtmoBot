@@ -4,10 +4,7 @@ module.exports = (Bot, Message) => {
 	if (Message.content.startsWith(Settings.Prefix)) return;
 	if (Settings.Testing === true) return;
 	
-	Depends.Mongoose.connect(Settings.Connection + "\Level", {useNewUrlParser: true })
-	.catch(Error){
-		console.error(Error)
-	}
+	Depends.Mongoose.connect(Settings.Connection + "\Level", {useNewUrlParser: true }).catch(Error => console.error(Error))
 	
 	Settings.Schemas.Level.findOne({
 		UserId: Message.author.id
