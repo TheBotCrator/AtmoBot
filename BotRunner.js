@@ -69,7 +69,7 @@ Depends.FS.recurse("structs/Events", (Path, Rel, Name) => {
 	let EventName = Name.split('.')[0]
 	let Event = require(__dirname + `/structs/Events/${Name}`)
 	Settings.Bot.on(EventName, Event.bind(null, Settings.Bot))
-}).catch(Error => console.error(Error))
+})
 
 // Opening Connections
 Depends.Mongoose.connect(Settings.Connection, {useNewUrlParser: true }).catch(Error => console.error(Error))
