@@ -4,7 +4,7 @@ module.exports = class Economoy {
 
 		Settings.Schemas.Level.findOne({
 			UserId: Message.author.id
-		}), (Error, Results) = {
+		}), (Error, Results) => {
 			let NewXP = Math.floor(Math.random() * 7) + 8;
 			if (!Results) {
 				let Level = new Settings.Schemas.Level({
