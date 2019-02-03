@@ -25,10 +25,10 @@ class RSetupCommand extends Commando.Command {
 			})
 			
 			let LevelArg = Args[1]
-			let RoleArg = Args[2]
 			
-			let ServerRole = message.guild.roles.get(RoleArg)
-			if (!ServerRole) return message.channel.send(":x: Invalid Role ID!");
+			let RoleArg = message.mentions.roles.first()
+			if (!RoleArg) return message.channel.send(":x: Invalid Role!");
+			let RoleId =  RoleArg.id
 			
 			Settings.Schemas.Role.findOne({
 				ServerID: message.guild.id
@@ -37,11 +37,11 @@ class RSetupCommand extends Commando.Command {
 				if(!Results){
 					let Role = new Settings.Schemas.Role({
 						ServerID: message.guild.id,
-						Roles: [[LevelArg, RoleArg]]
+						Roles: [[LevelArg, RoleId]]
 					})
 					Role.save().then(Results => console.log(Results)).catch(Error => console.log(Error))
 				} else {
-					let SetFRoles = [LevelArg, RoleArg]
+					let SetFRoles = [LevelArg, RoleId]
 					Results.Role.push(SetFRoles)
 					Results.save().catch(Error => console.log(Error))
 				}
