@@ -2,6 +2,9 @@
 
 // Getting Bot Dependencies
 global.Depends = {
+	Path: require('path'), // Used for Library Directory.
+	
+	// Primary Dependencies
     Discord: require('discord.js'), // Library for Hosting Bot.
     Commando: require('discord.js-commando'), // Library Extension for Hosting Bot.
     Timeout: require('foreach-timeout'), // Used for Rainbow Roles.
@@ -16,7 +19,7 @@ global.Depends = {
 }
 
 // Getting Bot Settings Information
-global.Settings = {
+global.Settings = { 
     Name: "Lyaboo", // Name of Bot.
     Version: "0.1.621", // Version of the Bot.
     Testing: false, // Testing State of the Bot.
@@ -56,7 +59,18 @@ Settings.Bot.registry
 	//.registerGroup('moderation', "Moderation Commands")
 	//.registerGroup('economy', "Economy Commands")
     .registerGroup('utilities', 'Developer Commands')
+	.registerDefaults()
     .registerCommandsIn(__dirname + "/commands");
+
+// Binding Connections
+var Files = Depends.Path.join(__dirname, "structs/Events")
+Files.forEach((file) => {
+	if (file.split('.')[0] !== "js") return;
+	
+	let EventName = file.split('.')[0]
+	let Event = require(__dirname + `/structs/Events/${file}`)
+	Settings.Bot.on(EventName, Event.bind(null, Settings.Bot))
+})
 
 // Opening Connections
 Depends.Mongoose.connect(Settings.Connection, {useNewUrlParser: true })
@@ -64,140 +78,5 @@ Depends.Mongoose.connect(Settings.Connection, {useNewUrlParser: true })
 	console.log(Error)
 })
 
-// Getting Rainbow Functions
-async function Color() {
-    Depends.Timeout(Colors, (Color) => {
-        Settings.Bot.guilds.forEach((guild) => {
-            if (!Stop.includes(guild.id)) {
-                let role = guild.roles.find('name', 'Certified Customary');
-                if (role && role.editable)
-                    role.setColor(Color);
-            }
-        })
-    }, 1500).then(Color);
-}
-
 // Getting Bot Functions
-Settings.Bot.on("guildCreate", Guild => {
-    console.log(`New guild joined: ${Guild.name} (id: ${Guild.id}). This guild has ${Guild.memberCount} members!`);
-    if (Settings.Testing === false) Bot.user.setActivity(`${Settings.Status}`, {type: "STREAMING"})
-	
-	if (!Records[Guild.id]) {
-		Records[Guild.id] = {
-				
-		}	
-		return
-	}		
-});
-Settings.Bot.on("guildDelete", Guild => {
-    console.log(`I have been removed from: ${Guild.name} (id: ${Guild.id})`);
-    if (Settings.Testing === false) Bot.user.setActivity(`${Settings.Status}`, {type: "STREAMING"})
-		
-	if (Records[Guild.id]) {
-		delete Records[Guild.id]
-		return
-	}	
-});
-
-Settings.Bot.on("guildMemberAdd", Member => {
-    console.log(`${Member.user.username} has joined ${Member.guild.id}`);
-
-    const Role = Member.guild.roles.find(r => r.name === "Sector Noobs");
-    Member.addRole(Role)
-
-    const welcomeChannel = Member.guild.channels.find('name', 'general');
-    if (welcomeChannel) {
-		let WelcomeMessage = `${Member.user}`
-		let WelcomeEmbed = new Depends.Discord.RichEmbed()
-            .setTitle("Member has joined!")
-            .setThumbnail(Member.user.displayAvatarURL)
-            .setDescription(`Welcome ${Member.user} to ${Member.guild.name}. Please remember to read <#521863469482377217> and to be active to achieve roles. We are a community of people who simply try to have fun. If you have any questions, please see an Moderator or a Person of Higher Role in the Server. To make a suggestion, please see <#522104070647971840> and note that its a Beta feature in progress.`)
-            .setColor("#27037e")
-            .setFooter(`You are the ${Member.guild.memberCount} member to joined.`)
-            .setTimestamp();
-		welcomeChannel.send(WelcomeMessage, WelcomeEmbed)
-    }
-});
-Settings.Bot.on("guildMemberRemove", Member => {
-    console.log(`${Member.user.username} has left ${Member.guild.id}`);
-    const leaveChannel = Member.guild.channels.find('name', 'general');
-    if (leaveChannel) {
-        let LeaveEmbed = new Depends.Discord.RichEmbed()
-            .setTitle("Member has left!")
-            .setThumbnail(Member.user.displayAvatarURL)
-            .setDescription(`Sad to see you leave ${Member.user}! We hope you enjoyed your stay at ${Member.guild.name}.`)
-            .setColor("#27037e")
-            .setFooter(`Member Count is at ${Member.guild.memberCount}.`)
-            .setTimestamp();
-        leaveChannel.send(LeaveEmbed)
-    }
-});
-
-Settings.Bot.on("message", Message => {
-	if (Message.author.equals(Settings.Bot.user)) return;
-	if (Message.channel.type === "dm") return;
-	if (Message.content.startsWith(Settings.Prefix)) return;
-	if (Settings.Testing === true) return;
-	
-	Settings.Schemas.Suggestion.findOne({
-		ServerID: Message.guild.id
-	}, (Error, Results) => {
-		if (Error) console.log(Error);
-			if(!Results) return Message.channel.send(":warning: Database Entry not Found for this Server!")
-				
-			let SChannel = Results.SuggestionsChannel
-			let RChannel = Results.RecordChannel
-			
-			if (Number(Message.channel.id) === Number(SChannel)){
-				Message.delete(100)
-				if(!Results.SuggestionsEnabled === true) return Message.channel.send({embed: {description: "This Server isn't Currently accepting Suggestions.", color: "6e00ff"}}).then(MS => MS.delete(5000))
-
-				let FirstEmbed = new Depends.Discord.RichEmbed()
-				.setColor("6e00ff")
-				.setTimestamp()
-				.addField("Beta Feature", "Thank you for testing this Feature! Your data has been recorded, and staff will review soon! These messages will disappear in a few seconds.");
-				
-				let SecondEmbed = new Depends.Discord.RichEmbed()
-				.setColor("6e00ff")
-				.setTimestamp()
-				.setFooter(`Posted by ${Message.author.username} | #${Message.author.discriminator}`, Message.author.displayAvatarURL)
-				.setAuthor(`Feedback #${Message.member.user.id}`, Message.guild.iconURL)
-				.addField('Description', `${Message.content}`);        
-									
-				
-				let ActualChannel = Settings.Bot.channels.get(RChannel)
-				if (ActualChannel){ 
-					ActualChannel.send(SecondEmbed); 
-				} else { 
-					return Message.channel.send(":x: Cannot Log Suggestions due to Error!")
-				}
-
-				Message.channel.send(FirstEmbed).then(Message => Message.delete(5000));
-				
-			} else {
-				console.log("Something went wrong :thonk:")
-			}	
-	})
-});
-Settings.Bot.on("ready", function () {
-    console.log(`${Settings.Name} has loaded and is ready for Usage. Online at ${Settings.Bot.guilds.size}`);
-    if (Settings.Testing === false) {
-        Settings.Bot.user.setActivity(`${Settings.Status}`, {type: "STREAMING"})
-    };
-    if(Settings.Testing === true){
-        Settings.Bot.user.setStatus("idle");
-        Settings.Bot.user.setActivity("Maintenance Mode On, Will Be Back Soon.")
-        return;
-    }
-	
-    Settings.Bot.guilds.forEach((guild) => {
-		if (!Records[guild.id]) {
-			Records[guild.id] = {
-				
-			}	
-		}	
-	})	
-    Color();
-});
-
 Settings.Bot.login(Settings.DevKeys.Login)
