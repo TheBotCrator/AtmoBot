@@ -4,7 +4,7 @@ module.exports = (Bot, Message) => {
 	if (Message.content.startsWith(Settings.Prefix)) return;
 	if (Settings.Testing === true) return;
 	
-	let Functions = require(__dirname + "/structs/EconomyFunctions.js")
+	let Functions = require("/app/structs/EconomyFunctions.js")
 	Functions.addExperience(Message)
 	
 	// Coming Soon!
