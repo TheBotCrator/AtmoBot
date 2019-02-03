@@ -15,7 +15,7 @@
 	
 	 
 	"require-all": "^3.0.0",
-	"browsify": "^16.2.3",
+	"browserify": "^16.2.3",
         "npm": "^6.4.1",
 	"node-opus": "^0.3.1",
 	
