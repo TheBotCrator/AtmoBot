@@ -33,6 +33,24 @@ module.exports = (Bot, Message) => {
 				.setTitle("Congratulations!")
 				.setDescription(`You have leveled up to Level ${NewLevel}`);
 				Message.channel.send(`${Message.author}`, Embed).then(MSG => MSG.delete(10000))
+				
+				Settings.Schemas.Level.findOne({
+					ServerID: Message.guild.id
+				}, (Error, Results) => {
+					if(Error) console.error(Error);
+					if (!Results) return;
+					let Roles = Results.Roles
+					Roles.forEach((array) => {
+						let LvlNum = array[0]
+						let RoleID = array[1]
+						let ARole = Message.guild.roles.get(RoleID)
+						
+						if(!ARole) return;
+						if(!LvlNum) return;
+						
+						if(LvlNum <= NewLevel) Message.guild.fetchMember(Message.author.user).addRole(Role);
+					})
+				})
 			}
 			Results.save().catch(Error => console.log(Error))
 		}
