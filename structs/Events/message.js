@@ -12,7 +12,7 @@ module.exports = (Bot, Message) => {
 		let NewXP = Math.floor(Math.random() * 7) + 8;
 		if (!Results) {
 			let Level = new Settings.Schemas.Level({
-				UserId: Message.guild.id,
+				UserId: Message.author.id,
 				LevelNumber: 1,
 				XPNumber: NewXP,
 				MoneyNumber: 0
