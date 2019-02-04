@@ -1,4 +1,4 @@
-// Coded by Christopher H::Lyawoo#9768
+// Coded by Lanes
 
 // Getting Bot Dependencies
 global.Depends = {
@@ -30,7 +30,7 @@ global.Settings = {
         Developer: "417835827700301836" // Bot Developer for Lyaboo.
     },
     DevKeys: {
-        Login: process.env.BOT_TOKEN // Used for Accessing the Bot.
+        Login: process.env.NTQxOTUxNTQ4NDk0ODM5ODA4.Dzo7kg.I6Qg4QIGlc8iR99dBWpS_dX3rO4 // Used for Accessing the Bot.
     },
 	Schemas: {
 		Level: require(__dirname + "/structs/Schemas/levelSchema.js"),
